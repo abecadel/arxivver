@@ -19,10 +19,10 @@ import java.util.List;
 public class ArxivFeedParser {
 
     private static final String ns = null;
+    private static final DateFormat arxivFeedDateFormat = new SimpleDateFormat();
     private static final DateFormat arxivEntryDateFormat = new SimpleDateFormat("YYYY-MM-DD'T'HH:MM:SSZ");
 
     public ArxivFeed parse(InputStream in) throws XmlPullParserException, IOException {
-
         try {
             XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
@@ -38,7 +38,6 @@ public class ArxivFeedParser {
         ArxivFeed arxivFeed = new ArxivFeed();
         List<ArxivFeedEntry> entries = new ArrayList<>();
 
-//        parser.require(XmlPullParser.START_TAG, ns, "feed");
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
@@ -52,17 +51,24 @@ public class ArxivFeedParser {
                 arxivFeed.setLink(""); //TODO
                 skip(parser);
 
+            } else if (name.equals("title")) {
+                arxivFeed.setTitle(readText(parser, "title"));
+
             } else if (name.equals("id")) {
-                arxivFeed.setId(""); //TODO
-                skip(parser);
+                arxivFeed.setId(readText(parser, "id"));
 
             } else if (name.equals("updated")) {
                 arxivFeed.setUpdated(null); //TODO
                 skip(parser);
 
-            } else if (name.equals("opensearch")) {
-                arxivFeed.setItemsPerPage(1); //TODO
-                skip(parser);
+            } else if (name.equals("opensearch:totalResults")) {
+                arxivFeed.setTotalResults(Integer.parseInt(readText(parser, "opensearch:totalResults")));
+
+            } else if (name.equals("opensearch:startIndex")) {
+                arxivFeed.setStartIndex(Integer.parseInt(readText(parser, "opensearch:startIndex")));
+
+            } else if (name.equals("opensearch:itemsPerPage")) {
+                arxivFeed.setItemsPerPage(Integer.parseInt(readText(parser, "opensearch:itemsPerPage")));
 
             } else {
                 skip(parser);
@@ -74,7 +80,6 @@ public class ArxivFeedParser {
     }
 
     private ArxivFeedEntry readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
-
         ArxivFeedEntry arxivFeedEntry = new ArxivFeedEntry();
         parser.require(XmlPullParser.START_TAG, ns, "entry");
 
@@ -94,11 +99,11 @@ public class ArxivFeedParser {
                     updatedList = new ArrayList<>();
                 }
 
-                updatedList.add(readDate(parser, "updated"));
+                updatedList.add(readEntryDate(parser, "updated"));
                 arxivFeedEntry.setUpdatedList(updatedList);
 
             } else if (name.equals("published")) {
-                arxivFeedEntry.setPublished(readDate(parser, "published"));
+                arxivFeedEntry.setPublished(readEntryDate(parser, "published"));
 
             } else if (name.equals("title")) {
                 arxivFeedEntry.setTitle(readText(parser, "title"));
@@ -149,7 +154,7 @@ public class ArxivFeedParser {
         String result = "";
         parser.require(XmlPullParser.START_TAG, ns, "author");
         parser.nextTag();
-        parser.require(XmlPullParser.START_TAG, ns, "name"); // if name==name getText
+        parser.require(XmlPullParser.START_TAG, ns, "name"); //TODO: if name==name getText
 
         if (parser.next() == XmlPullParser.TEXT) {
             result = parser.getText();
@@ -176,7 +181,7 @@ public class ArxivFeedParser {
     }
 
     @Nullable
-    private Date readDate(XmlPullParser parser, String tagName) {
+    private Date readEntryDate(XmlPullParser parser, String tagName) {
         try {
             String str = readText(parser, tagName).replace("Z", "+0000");
             return arxivEntryDateFormat.parse(str);
