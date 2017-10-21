@@ -5,7 +5,7 @@ import java.util.List;
 
 class ArxivFeedEntry {
     private String id;
-    private Date updated;
+    private List<Date> updatedList;
     private Date published;
     private String title;
     private String summary;
@@ -23,12 +23,12 @@ class ArxivFeedEntry {
         this.id = id;
     }
 
-    public Date getUpdated() {
-        return updated;
+    public List<Date> getUpdatedList() {
+        return updatedList;
     }
 
-    public void setUpdated(Date updated) {
-        this.updated = updated;
+    public void setUpdatedList(List<Date> updatedList) {
+        this.updatedList = updatedList;
     }
 
     public Date getPublished() {
@@ -99,7 +99,7 @@ class ArxivFeedEntry {
     public String toString() {
         return "ArxivFeedEntry{" +
                 "id='" + id + '\'' +
-                ", updated=" + updated +
+                ", updatedList=" + updatedList +
                 ", published=" + published +
                 ", title='" + title + '\'' +
                 ", summary='" + summary + '\'' +

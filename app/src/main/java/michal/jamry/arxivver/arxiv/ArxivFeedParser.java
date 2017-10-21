@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
 public class ArxivFeedParser {
 
     private static final String ns = null;
-    private final DateFormat arxivEntryDateFormat = DateFormat.getDateInstance();
+    private final DateFormat arxivEntryDateFormat = new SimpleDateFormat("YYYY-MM-DD'T'HH:MM:SSZ");
 
     public List<ArxivFeedEntry> parse(InputStream in) throws XmlPullParserException, IOException {
         try {
@@ -72,7 +73,13 @@ public class ArxivFeedParser {
 
                     break;
                 case "updated":
-                    arxivFeedEntry.setUpdated(readDate(parser, "updated"));
+                    List<Date> updatedList = arxivFeedEntry.getUpdatedList();
+                    if (updatedList == null) {
+                        updatedList = new ArrayList<>();
+                    }
+
+                    updatedList.add(readDate(parser, "updated"));
+                    arxivFeedEntry.setUpdatedList(updatedList);
 
                     break;
                 case "published":
@@ -93,7 +100,7 @@ public class ArxivFeedParser {
                         authorList = new ArrayList<>();
                     }
 
-                    authorList.add(readText(parser, "author"));
+                    authorList.add(readAuthor(parser));
                     arxivFeedEntry.setAuthorList(authorList);
 
                     break;
@@ -127,6 +134,23 @@ public class ArxivFeedParser {
         return arxivFeedEntry;
     }
 
+    private String readAuthor(XmlPullParser parser) throws IOException, XmlPullParserException {
+        String result = "";
+        parser.require(XmlPullParser.START_TAG, ns, "author");
+        parser.nextTag();
+        parser.require(XmlPullParser.START_TAG, ns, "name");
+
+        if (parser.next() == XmlPullParser.TEXT) {
+            result = parser.getText();
+            parser.nextTag();
+        }
+
+        parser.require(XmlPullParser.END_TAG, ns, "name");
+        parser.nextTag();
+        parser.require(XmlPullParser.END_TAG, ns, "author");
+        return result;
+    }
+
     private String readText(XmlPullParser parser, String tagName) throws IOException, XmlPullParserException {
         String result = "";
         parser.require(XmlPullParser.START_TAG, ns, tagName);
@@ -143,7 +167,7 @@ public class ArxivFeedParser {
     @Nullable
     private Date readDate(XmlPullParser parser, String tagName) {
         try {
-            String str = readText(parser, tagName);
+            String str = readText(parser, tagName).replace("Z", "+0000");
             return arxivEntryDateFormat.parse(str);
 
         } catch (ParseException | IOException | XmlPullParserException e) {

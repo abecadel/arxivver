@@ -22,11 +22,6 @@ public class ArxivFeedParserTest {
 
         //when
         List<ArxivFeedEntry> ret = arxivFeedParser.parse(stream);
-
-        //then
-        for (ArxivFeedEntry arxivFeedEntry : ret) {
-            System.out.println(arxivFeedEntry);
-        }
     }
 
 
