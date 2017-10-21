@@ -2,18 +2,29 @@ package michal.jamry.arxivver.arxiv;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 class ArxivFeedEntry {
-    private String id;
-    private List<Date> updatedList;
-    private Date published;
     private String title;
+    private String id;
+    private Date published;
+    private List<Date> updatedList;
     private String summary;
     private List<String> authorList;
-    private String link;
-    private String linkTitle;
-    private String primaryCategory;
+    private Map<String, String> links;
     private List<String> categories;
+    private String primaryCategory;
+    private String comment;
+    private String journalRef;
+    private String doi;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getId() {
         return id;
@@ -21,14 +32,6 @@ class ArxivFeedEntry {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public List<Date> getUpdatedList() {
-        return updatedList;
-    }
-
-    public void setUpdatedList(List<Date> updatedList) {
-        this.updatedList = updatedList;
     }
 
     public Date getPublished() {
@@ -39,12 +42,12 @@ class ArxivFeedEntry {
         this.published = published;
     }
 
-    public String getTitle() {
-        return title;
+    public List<Date> getUpdatedList() {
+        return updatedList;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setUpdatedList(List<Date> updatedList) {
+        this.updatedList = updatedList;
     }
 
     public String getSummary() {
@@ -63,28 +66,12 @@ class ArxivFeedEntry {
         this.authorList = authorList;
     }
 
-    public String getLink() {
-        return link;
+    public Map<String, String> getLinks() {
+        return links;
     }
 
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public String getLinkTitle() {
-        return linkTitle;
-    }
-
-    public void setLinkTitle(String linkTitle) {
-        this.linkTitle = linkTitle;
-    }
-
-    public String getPrimaryCategory() {
-        return primaryCategory;
-    }
-
-    public void setPrimaryCategory(String primaryCategory) {
-        this.primaryCategory = primaryCategory;
+    public void setLinks(Map<String, String> links) {
+        this.links = links;
     }
 
     public List<String> getCategories() {
@@ -95,19 +82,53 @@ class ArxivFeedEntry {
         this.categories = categories;
     }
 
+    public String getPrimaryCategory() {
+        return primaryCategory;
+    }
+
+    public void setPrimaryCategory(String primaryCategory) {
+        this.primaryCategory = primaryCategory;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getJournalRef() {
+        return journalRef;
+    }
+
+    public void setJournalRef(String journalRef) {
+        this.journalRef = journalRef;
+    }
+
+    public String getDoi() {
+        return doi;
+    }
+
+    public void setDoi(String doi) {
+        this.doi = doi;
+    }
+
     @Override
     public String toString() {
         return "ArxivFeedEntry{" +
-                "id='" + id + '\'' +
-                ", updatedList=" + updatedList +
+                "title='" + title + '\'' +
+                ", id='" + id + '\'' +
                 ", published=" + published +
-                ", title='" + title + '\'' +
+                ", updatedList=" + updatedList +
                 ", summary='" + summary + '\'' +
                 ", authorList=" + authorList +
-                ", link='" + link + '\'' +
-                ", linkTitle='" + linkTitle + '\'' +
-                ", primaryCategory='" + primaryCategory + '\'' +
+                ", links=" + links +
                 ", categories=" + categories +
+                ", primaryCategory='" + primaryCategory + '\'' +
+                ", comment='" + comment + '\'' +
+                ", journalRef='" + journalRef + '\'' +
+                ", doi='" + doi + '\'' +
                 '}';
     }
 }

@@ -4,21 +4,22 @@ package michal.jamry.arxivver.arxiv;
 import java.util.Date;
 import java.util.List;
 
-public class ArxivApiQueryResult {
-    List<ArxivFeedEntry> entries;
+public class ArxivFeed {
+    private String title;
     private String id;
-    private String link;
     private Date updated;
+    private String link;
     private int totalResults;
     private int startIndex;
     private int itemsPerPage;
+    List<ArxivFeedEntry> entries;
 
-    public List<ArxivFeedEntry> getEntries() {
-        return entries;
+    public String getTitle() {
+        return title;
     }
 
-    public void setEntries(List<ArxivFeedEntry> entries) {
-        this.entries = entries;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getId() {
@@ -29,20 +30,20 @@ public class ArxivApiQueryResult {
         this.id = id;
     }
 
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
     public Date getUpdated() {
         return updated;
     }
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public int getTotalResults() {
@@ -69,16 +70,25 @@ public class ArxivApiQueryResult {
         this.itemsPerPage = itemsPerPage;
     }
 
+    public List<ArxivFeedEntry> getEntries() {
+        return entries;
+    }
+
+    public void setEntries(List<ArxivFeedEntry> entries) {
+        this.entries = entries;
+    }
+
     @Override
     public String toString() {
-        return "ArxivApiQueryResult{" +
-                "entries=" + entries +
+        return "ArxivFeed{" +
+                "title='" + title + '\'' +
                 ", id='" + id + '\'' +
-                ", link='" + link + '\'' +
                 ", updated=" + updated +
+                ", link='" + link + '\'' +
                 ", totalResults=" + totalResults +
                 ", startIndex=" + startIndex +
                 ", itemsPerPage=" + itemsPerPage +
+                ", entries=" + entries +
                 '}';
     }
 }

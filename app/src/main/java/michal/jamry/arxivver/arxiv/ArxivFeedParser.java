@@ -21,7 +21,7 @@ public class ArxivFeedParser {
     private static final String ns = null;
     private static final DateFormat arxivEntryDateFormat = new SimpleDateFormat("YYYY-MM-DD'T'HH:MM:SSZ");
 
-    public ArxivApiQueryResult parse(InputStream in) throws XmlPullParserException, IOException {
+    public ArxivFeed parse(InputStream in) throws XmlPullParserException, IOException {
         try {
             XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
@@ -34,8 +34,8 @@ public class ArxivFeedParser {
 
     }
 
-    private ArxivApiQueryResult readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
-        ArxivApiQueryResult arxivApiQueryResult = new ArxivApiQueryResult();
+    private ArxivFeed readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
+        ArxivFeed arxivFeed = new ArxivFeed();
         List<ArxivFeedEntry> entries = new ArrayList<>();
 
         parser.require(XmlPullParser.START_TAG, ns, "feed");
@@ -49,24 +49,24 @@ public class ArxivFeedParser {
                 entries.add(readEntry(parser));
 
             } else if (name.equals("link")) {
-                arxivApiQueryResult.setLink("");
+                arxivFeed.setLink("");
 
             } else if (name.equals("id")) {
-                arxivApiQueryResult.setId("");
+                arxivFeed.setId("");
 
             } else if (name.equals("updated")) {
-                arxivApiQueryResult.setUpdated(null);
+                arxivFeed.setUpdated(null);
 
             } else if (name.equals("opensearch")) {
-                arxivApiQueryResult.setItemsPerPage(1);
+                arxivFeed.setItemsPerPage(1);
 
             } else {
                 skip(parser);
             }
         }
 
-        arxivApiQueryResult.setEntries(entries);
-        return arxivApiQueryResult;
+        arxivFeed.setEntries(entries);
+        return arxivFeed;
     }
 
     private ArxivFeedEntry readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {

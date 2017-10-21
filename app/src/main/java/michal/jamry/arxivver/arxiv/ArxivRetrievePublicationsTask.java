@@ -9,9 +9,9 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ArxivRetrievePublicationsTask extends AsyncTask<String, Void, ArxivApiQueryResult> {
+public class ArxivRetrievePublicationsTask extends AsyncTask<String, Void, ArxivFeed> {
     @Override
-    protected ArxivApiQueryResult doInBackground(String... urls) {
+    protected ArxivFeed doInBackground(String... urls) {
         try {
             return loadXmlFromNetwork(urls[0]);
         } catch (IOException e) {
@@ -24,28 +24,28 @@ public class ArxivRetrievePublicationsTask extends AsyncTask<String, Void, Arxiv
     }
 
     @Override
-    protected void onPostExecute(ArxivApiQueryResult result) {
+    protected void onPostExecute(ArxivFeed result) {
 //        setContentView(R.layout.main);
 //        // Displays the HTML string in the UI via a WebView
 //        WebView myWebView = (WebView) findViewById(R.id.webview);
 //        myWebView.loadData(result, "text/html", null);
     }
 
-    private ArxivApiQueryResult loadXmlFromNetwork(String urlString) throws XmlPullParserException, IOException {
+    private ArxivFeed loadXmlFromNetwork(String urlString) throws XmlPullParserException, IOException {
         InputStream stream = null;
         ArxivFeedParser arxivFeedParser = new ArxivFeedParser();
-        ArxivApiQueryResult arxivApiQueryResult;
+        ArxivFeed arxivFeed;
 
         try {
             stream = downloadUrl(urlString);
-            arxivApiQueryResult = arxivFeedParser.parse(stream);
+            arxivFeed = arxivFeedParser.parse(stream);
         } finally {
             if (stream != null) {
                 stream.close();
             }
         }
 
-        return arxivApiQueryResult;
+        return arxivFeed;
     }
 
     private InputStream downloadUrl(String urlString) throws IOException {
