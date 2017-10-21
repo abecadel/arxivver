@@ -8,6 +8,11 @@ import org.junit.runner.RunWith;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
+import java.util.List;
+
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
 
 @RunWith(AndroidJUnit4.class)
 public class ArxivFeedParserTest {
@@ -21,6 +26,54 @@ public class ArxivFeedParserTest {
 
         //when
         ArxivFeed arxivFeed = arxivFeedParser.parse(stream);
+
+        //then
+        assertEquals("http://arxiv.org/api/query?search_query=all:electron&id_list=&start=0&max_results=1", arxivFeed.getLink());
+        assertEquals("ArXiv Query: search_query=all:electron&id_list=&start=0&max_results=1", arxivFeed.getTitle());
+        assertEquals("http://arxiv.org/api/cHxbiOdZaP56ODnBPIenZhzg5f8", arxivFeed.getId());
+        assertEquals("2007-10-08T00:00:00-04:00", arxivFeed.getUpdated().toString());
+        assertEquals(1000, arxivFeed.getTotalResults());
+        assertEquals(0, arxivFeed.getStartIndex());
+        assertEquals(1, arxivFeed.getItemsPerPage());
+
+        List<ArxivFeedEntry> arxivFeedEntries = arxivFeed.getEntries();
+        assertNotNull(arxivFeedEntries);
+        assertEquals(1, arxivFeedEntries.size());
+
+        ArxivFeedEntry arxivFeedEntry = arxivFeedEntries.get(0);
+        assertEquals("http://arxiv.org/abs/hep-ex/0307015", arxivFeedEntry.getId());
+        assertEquals(123, arxivFeedEntry.getPublished().getTime());
+
+        List<Date> updatedList = arxivFeedEntry.getUpdatedList();
+        assertNotNull(updatedList);
+        assertEquals(1, updatedList.size());
+        assertEquals(123, updatedList.get(0).getTime());
+
+        assertEquals("Multi-Electron Production at High Transverse Momenta in ep Collisions at HERA", arxivFeedEntry.getTitle());
+        assertEquals("  Multi-electron production is studied at high electron transverse momentum in\n" +
+                "positron- and electron-proton collisions using the H1 detector at HERA. The\n" +
+                "data correspond to an integrated luminosity of 115 pb-1. Di-electron and\n" +
+                "tri-electron event yields are measured. Cross sections are derived in a\n" +
+                "restricted phase space region dominated by photon-photon collisions. In general\n" +
+                "good agreement is found with the Standard Model predictions. However, for\n" +
+                "electron pair invariant masses above 100 GeV, three di-electron events and\n" +
+                "three tri-electron events are observed, compared to Standard Model expectations\n" +
+                "of 0.30 \\pm 0.04 and 0.23 \\pm 0.04, respectively.\n", arxivFeedEntry.getSummary());
+
+
+        assertNotNull(arxivFeedEntry.getAuthorList());
+        assertEquals(1, arxivFeedEntry.getAuthorList().size());
+        assertEquals("H1 Collaboration", arxivFeedEntry.getAuthorList().get(0));
+
+        assertEquals("23 pages, 8 figures and 4 tables", arxivFeedEntry.getComment());
+        assertEquals("Eur.Phys.J. C31 (2003) 17-29", arxivFeedEntry.getJournalRef());
+        //TODO: links
+        assertEquals("hep-ex", arxivFeedEntry.getPrimaryCategory());
+
+        assertNotNull(arxivFeedEntry.getCategories());
+        assertEquals(1, arxivFeedEntry.getCategories().size());
+        assertEquals("hep-ex", arxivFeedEntry.getCategories().get(0));
+
     }
 
     @Test

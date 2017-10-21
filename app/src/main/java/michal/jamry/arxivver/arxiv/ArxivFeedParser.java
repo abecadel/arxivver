@@ -19,7 +19,6 @@ import java.util.List;
 public class ArxivFeedParser {
 
     private static final String ns = null;
-    private static final DateFormat arxivFeedDateFormat = new SimpleDateFormat();
     private static final DateFormat arxivEntryDateFormat = new SimpleDateFormat("YYYY-MM-DD'T'HH:MM:SSZ");
 
     public ArxivFeed parse(InputStream in) throws XmlPullParserException, IOException {
@@ -58,8 +57,7 @@ public class ArxivFeedParser {
                 arxivFeed.setId(readText(parser, "id"));
 
             } else if (name.equals("updated")) {
-                arxivFeed.setUpdated(null); //TODO
-                skip(parser);
+                arxivFeed.setUpdated(readDate(parser, "updated"));
 
             } else if (name.equals("opensearch:totalResults")) {
                 arxivFeed.setTotalResults(Integer.parseInt(readText(parser, "opensearch:totalResults")));
@@ -99,11 +97,11 @@ public class ArxivFeedParser {
                     updatedList = new ArrayList<>();
                 }
 
-                updatedList.add(readEntryDate(parser, "updated"));
+                updatedList.add(readDate(parser, "updated"));
                 arxivFeedEntry.setUpdatedList(updatedList);
 
             } else if (name.equals("published")) {
-                arxivFeedEntry.setPublished(readEntryDate(parser, "published"));
+                arxivFeedEntry.setPublished(readDate(parser, "published"));
 
             } else if (name.equals("title")) {
                 arxivFeedEntry.setTitle(readText(parser, "title"));
@@ -189,7 +187,7 @@ public class ArxivFeedParser {
     }
 
     @Nullable
-    private Date readEntryDate(XmlPullParser parser, String tagName) {
+    private Date readDate(XmlPullParser parser, String tagName) {
         try {
             String str = readText(parser, tagName).replace("Z", "+0000");
             return arxivEntryDateFormat.parse(str);
