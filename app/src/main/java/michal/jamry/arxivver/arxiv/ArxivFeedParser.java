@@ -49,12 +49,16 @@ public class ArxivFeedParser {
                 entries.add(readEntry(parser));
 
             } else if (name.equals("link")) {
+                arxivApiQueryResult.setLink("");
 
             } else if (name.equals("id")) {
+                arxivApiQueryResult.setId("");
 
             } else if (name.equals("updated")) {
+                arxivApiQueryResult.setUpdated(null);
 
             } else if (name.equals("opensearch")) {
+                arxivApiQueryResult.setItemsPerPage(1);
 
             } else {
                 skip(parser);
@@ -77,69 +81,58 @@ public class ArxivFeedParser {
             }
 
             String name = parser.getName();
+            if (name.equals("id")) {
+                arxivFeedEntry.setId(readText(parser, "id"));
 
+            } else if (name.equals("updated")) {
+                List<Date> updatedList = arxivFeedEntry.getUpdatedList();
+                if (updatedList == null) {
+                    updatedList = new ArrayList<>();
+                }
 
-            switch (name) {
-                case "id":
-                    arxivFeedEntry.setId(readText(parser, "id"));
+                updatedList.add(readDate(parser, "updated"));
+                arxivFeedEntry.setUpdatedList(updatedList);
 
-                    break;
-                case "updated":
-                    List<Date> updatedList = arxivFeedEntry.getUpdatedList();
-                    if (updatedList == null) {
-                        updatedList = new ArrayList<>();
-                    }
+            } else if (name.equals("published")) {
+                arxivFeedEntry.setPublished(readDate(parser, "published"));
 
-                    updatedList.add(readDate(parser, "updated"));
-                    arxivFeedEntry.setUpdatedList(updatedList);
+            } else if (name.equals("title")) {
+                arxivFeedEntry.setTitle(readText(parser, "title"));
 
-                    break;
-                case "published":
-                    arxivFeedEntry.setPublished(readDate(parser, "published"));
+            } else if (name.equals("summary")) {
+                arxivFeedEntry.setSummary(readText(parser, "summary"));
 
-                    break;
-                case "title":
-                    arxivFeedEntry.setTitle(readText(parser, "title"));
+            } else if (name.equals("author")) {
+                List<String> authorList = arxivFeedEntry.getAuthorList();
+                if (authorList == null) {
+                    authorList = new ArrayList<>();
+                }
 
-                    break;
-                case "summary":
-                    arxivFeedEntry.setSummary(readText(parser, "summary"));
+                authorList.add(readAuthor(parser));
+                arxivFeedEntry.setAuthorList(authorList);
 
-                    break;
-                case "author":
-                    List<String> authorList = arxivFeedEntry.getAuthorList();
-                    if (authorList == null) {
-                        authorList = new ArrayList<>();
-                    }
-
-                    authorList.add(readAuthor(parser));
-                    arxivFeedEntry.setAuthorList(authorList);
-
-                    break;
-                case "link":
-//                        arxivFeedEntry.setLink(readText(parser, "link"));
+            } else if (name.equals("link")) {
+                //                        arxivFeedEntry.setLink(readText(parser, "link"));
 //                        arxivFeedEntry.setLinkTitle(readText(parser, "link"));
 
-                    break;
-                case "arxiv":
-                    //primary category
-                    //comment
+            } else if (name.equals("arxiv")) {
+                //primary category
+                //comment
 //                    arxivFeedEntry.setPrimaryCategory(readText(parser, "primary"));
 
-                    break;
-                case "category":
-                    List<String> categories = arxivFeedEntry.getCategories();
-                    if (categories == null) {
-                        categories = new ArrayList<>();
-                    }
+            } else if (name.equals("category")) {
+                List<String> categories = arxivFeedEntry.getCategories();
+                if (categories == null) {
+                    categories = new ArrayList<>();
+                }
 
-                    categories.add(readText(parser, "category"));
-                    arxivFeedEntry.setCategories(categories);
+                categories.add(readText(parser, "category"));
+                arxivFeedEntry.setCategories(categories);
 
-                    break;
-                default:
-                    skip(parser);
-                    break;
+
+            } else {
+                skip(parser);
+
             }
         }
 
