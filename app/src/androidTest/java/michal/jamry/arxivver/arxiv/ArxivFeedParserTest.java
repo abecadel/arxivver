@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
 public class ArxivFeedParserTest {
@@ -21,7 +20,7 @@ public class ArxivFeedParserTest {
         InputStream stream = new ByteArrayInputStream(FEED.getBytes(StandardCharsets.UTF_8.name()));
 
         //when
-        List<ArxivFeedEntry> ret = arxivFeedParser.parse(stream);
+        arxivFeedParser.parse(stream);
     }
 
 
