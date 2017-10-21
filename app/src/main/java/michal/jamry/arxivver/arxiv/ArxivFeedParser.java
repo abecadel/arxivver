@@ -131,8 +131,7 @@ public class ArxivFeedParser {
                 arxivFeedEntry.setComment(readText(parser, "arxiv:comment"));
 
             } else if (name.equals("arxiv:journal_ref")) {
-                arxivFeedEntry.setJournalRef(parser.getAttributeValue(null, "term"));
-                skip(parser);
+                arxivFeedEntry.setJournalRef(readText(parser, "arxiv:journal_ref"));
 
             } else if (name.equals("arxiv:doi")) {
                 arxivFeedEntry.setJournalRef(parser.getAttributeValue(null, "term"));
