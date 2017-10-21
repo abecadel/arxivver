@@ -22,6 +22,7 @@ public class ArxivFeedParser {
     private static final DateFormat arxivEntryDateFormat = new SimpleDateFormat("YYYY-MM-DD'T'HH:MM:SSZ");
 
     public ArxivFeed parse(InputStream in) throws XmlPullParserException, IOException {
+
         try {
             XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
@@ -31,14 +32,13 @@ public class ArxivFeedParser {
         } finally {
             in.close();
         }
-
     }
 
     private ArxivFeed readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
         ArxivFeed arxivFeed = new ArxivFeed();
         List<ArxivFeedEntry> entries = new ArrayList<>();
 
-        parser.require(XmlPullParser.START_TAG, ns, "feed");
+//        parser.require(XmlPullParser.START_TAG, ns, "feed");
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
@@ -49,16 +49,20 @@ public class ArxivFeedParser {
                 entries.add(readEntry(parser));
 
             } else if (name.equals("link")) {
-                arxivFeed.setLink("");
+                arxivFeed.setLink(""); //TODO
+                skip(parser);
 
             } else if (name.equals("id")) {
-                arxivFeed.setId("");
+                arxivFeed.setId(""); //TODO
+                skip(parser);
 
             } else if (name.equals("updated")) {
-                arxivFeed.setUpdated(null);
+                arxivFeed.setUpdated(null); //TODO
+                skip(parser);
 
             } else if (name.equals("opensearch")) {
-                arxivFeed.setItemsPerPage(1);
+                arxivFeed.setItemsPerPage(1); //TODO
+                skip(parser);
 
             } else {
                 skip(parser);
@@ -114,11 +118,13 @@ public class ArxivFeedParser {
             } else if (name.equals("link")) {
                 //                        arxivFeedEntry.setLink(readText(parser, "link"));
 //                        arxivFeedEntry.setLinkTitle(readText(parser, "link"));
+                skip(parser); //TODO: remove
 
-            } else if (name.equals("arxiv")) {
+            } else if (name.equals("arxiv:primary_category")) {
                 //primary category
                 //comment
-//                    arxivFeedEntry.setPrimaryCategory(readText(parser, "primary"));
+//                    arxivFeedEntry.setPrimaryCategory(readCategoryTerm(parser, "primary"));
+                skip(parser); //TODO: remove
 
             } else if (name.equals("category")) {
                 List<String> categories = arxivFeedEntry.getCategories();
@@ -126,13 +132,13 @@ public class ArxivFeedParser {
                     categories = new ArrayList<>();
                 }
 
-                categories.add(readText(parser, "category"));
-                arxivFeedEntry.setCategories(categories);
+//                categories.add(readCategoryTerm(parser, "category"));
+                skip(parser); // TODO: remove
 
+                arxivFeedEntry.setCategories(categories);
 
             } else {
                 skip(parser);
-
             }
         }
 
@@ -143,7 +149,7 @@ public class ArxivFeedParser {
         String result = "";
         parser.require(XmlPullParser.START_TAG, ns, "author");
         parser.nextTag();
-        parser.require(XmlPullParser.START_TAG, ns, "name");
+        parser.require(XmlPullParser.START_TAG, ns, "name"); // if name==name getText
 
         if (parser.next() == XmlPullParser.TEXT) {
             result = parser.getText();
