@@ -8,11 +8,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 
-public class ArxivRetrievePublicationsTask extends AsyncTask<String, Void, List<ArxivFeedEntry>> {
+public class ArxivRetrievePublicationsTask extends AsyncTask<String, Void, ArxivApiQueryResult> {
     @Override
-    protected List<ArxivFeedEntry> doInBackground(String... urls) {
+    protected ArxivApiQueryResult doInBackground(String... urls) {
         try {
             return loadXmlFromNetwork(urls[0]);
         } catch (IOException e) {
@@ -25,28 +24,28 @@ public class ArxivRetrievePublicationsTask extends AsyncTask<String, Void, List<
     }
 
     @Override
-    protected void onPostExecute(List<ArxivFeedEntry> result) {
+    protected void onPostExecute(ArxivApiQueryResult result) {
 //        setContentView(R.layout.main);
 //        // Displays the HTML string in the UI via a WebView
 //        WebView myWebView = (WebView) findViewById(R.id.webview);
 //        myWebView.loadData(result, "text/html", null);
     }
 
-    private List<ArxivFeedEntry> loadXmlFromNetwork(String urlString) throws XmlPullParserException, IOException {
+    private ArxivApiQueryResult loadXmlFromNetwork(String urlString) throws XmlPullParserException, IOException {
         InputStream stream = null;
         ArxivFeedParser arxivFeedParser = new ArxivFeedParser();
-        List<ArxivFeedEntry> arxivFeedEntryList = null;
+        ArxivApiQueryResult arxivApiQueryResult;
 
         try {
             stream = downloadUrl(urlString);
-            arxivFeedEntryList = arxivFeedParser.parse(stream);
+            arxivApiQueryResult = arxivFeedParser.parse(stream);
         } finally {
             if (stream != null) {
                 stream.close();
             }
         }
 
-        return arxivFeedEntryList;
+        return arxivApiQueryResult;
     }
 
     private InputStream downloadUrl(String urlString) throws IOException {

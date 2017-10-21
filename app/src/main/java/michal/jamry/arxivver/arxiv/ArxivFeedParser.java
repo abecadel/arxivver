@@ -19,9 +19,9 @@ import java.util.List;
 public class ArxivFeedParser {
 
     private static final String ns = null;
-    private final DateFormat arxivEntryDateFormat = new SimpleDateFormat("YYYY-MM-DD'T'HH:MM:SSZ");
+    private static final DateFormat arxivEntryDateFormat = new SimpleDateFormat("YYYY-MM-DD'T'HH:MM:SSZ");
 
-    public List<ArxivFeedEntry> parse(InputStream in) throws XmlPullParserException, IOException {
+    public ArxivApiQueryResult parse(InputStream in) throws XmlPullParserException, IOException {
         try {
             XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
@@ -34,7 +34,8 @@ public class ArxivFeedParser {
 
     }
 
-    private List<ArxivFeedEntry> readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
+    private ArxivApiQueryResult readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
+        ArxivApiQueryResult arxivApiQueryResult = new ArxivApiQueryResult();
         List<ArxivFeedEntry> entries = new ArrayList<>();
 
         parser.require(XmlPullParser.START_TAG, ns, "feed");
@@ -46,11 +47,22 @@ public class ArxivFeedParser {
 
             if (name.equals("entry")) {
                 entries.add(readEntry(parser));
+
+            } else if (name.equals("link")) {
+
+            } else if (name.equals("id")) {
+
+            } else if (name.equals("updated")) {
+
+            } else if (name.equals("opensearch")) {
+
             } else {
                 skip(parser);
             }
         }
-        return entries;
+
+        arxivApiQueryResult.setEntries(entries);
+        return arxivApiQueryResult;
     }
 
     private ArxivFeedEntry readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
