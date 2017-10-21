@@ -15,7 +15,16 @@ public class ArxivFeedParserTest {
     ArxivFeedParser arxivFeedParser = new ArxivFeedParser();
 
     @Test
-    public void parseProperExample() throws Exception {
+    public void parseProperExample1() throws Exception {
+        //given
+        InputStream stream = new ByteArrayInputStream(FEED2.getBytes(StandardCharsets.UTF_8.name()));
+
+        //when
+        ArxivFeed arxivFeed = arxivFeedParser.parse(stream);
+    }
+
+    @Test
+    public void parseProperExample2() throws Exception {
         //given
         InputStream stream = new ByteArrayInputStream(FEED.getBytes(StandardCharsets.UTF_8.name()));
 
@@ -394,6 +403,43 @@ public class ArxivFeedParserTest {
             "    <category term=\"cs.NE\" scheme=\"http://arxiv.org/schemas/atom\"/>\n" +
             "    <category term=\"cs.AI\" scheme=\"http://arxiv.org/schemas/atom\"/>\n" +
             "    <category term=\"cs.LG\" scheme=\"http://arxiv.org/schemas/atom\"/>\n" +
+            "  </entry>\n" +
+            "</feed>";
+
+    private static final String FEED2 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+            "<feed xmlns=\"http://www.w3.org/2005/Atom\" xmlns:opensearch=\"http://a9.com/-/spec/opensearch/1.1/\" xmlns:arxiv=\"http://arxiv.org/schemas/atom\">\n" +
+            "  <link xmlns=\"http://www.w3.org/2005/Atom\" href=\"http://arxiv.org/api/query?search_query=all:electron&amp;id_list=&amp;start=0&amp;max_results=1\" rel=\"self\" type=\"application/atom+xml\"/>\n" +
+            "  <title xmlns=\"http://www.w3.org/2005/Atom\">ArXiv Query: search_query=all:electron&amp;id_list=&amp;start=0&amp;max_results=1</title>\n" +
+            "  <id xmlns=\"http://www.w3.org/2005/Atom\">http://arxiv.org/api/cHxbiOdZaP56ODnBPIenZhzg5f8</id>\n" +
+            "  <updated xmlns=\"http://www.w3.org/2005/Atom\">2007-10-08T00:00:00-04:00</updated>\n" +
+            "  <opensearch:totalResults xmlns:opensearch=\"http://a9.com/-/spec/opensearch/1.1/\">1000</opensearch:totalResults>\n" +
+            "  <opensearch:startIndex xmlns:opensearch=\"http://a9.com/-/spec/opensearch/1.1/\">0</opensearch:startIndex>\n" +
+            "  <opensearch:itemsPerPage xmlns:opensearch=\"http://a9.com/-/spec/opensearch/1.1/\">1</opensearch:itemsPerPage>\n" +
+            "  <entry xmlns=\"http://www.w3.org/2005/Atom\" xmlns:arxiv=\"http://arxiv.org/schemas/atom\">\n" +
+            "    <id xmlns=\"http://www.w3.org/2005/Atom\">http://arxiv.org/abs/hep-ex/0307015</id>\n" +
+            "    <published xmlns=\"http://www.w3.org/2005/Atom\">2003-07-07T13:46:39-04:00</published>\n" +
+            "    <updated xmlns=\"http://www.w3.org/2005/Atom\">2003-07-07T13:46:39-04:00</updated>\n" +
+            "    <title xmlns=\"http://www.w3.org/2005/Atom\">Multi-Electron Production at High Transverse Momenta in ep Collisions at\n" +
+            "  HERA</title>\n" +
+            "    <summary xmlns=\"http://www.w3.org/2005/Atom\">  Multi-electron production is studied at high electron transverse momentum in\n" +
+            "positron- and electron-proton collisions using the H1 detector at HERA. The\n" +
+            "data correspond to an integrated luminosity of 115 pb-1. Di-electron and\n" +
+            "tri-electron event yields are measured. Cross sections are derived in a\n" +
+            "restricted phase space region dominated by photon-photon collisions. In general\n" +
+            "good agreement is found with the Standard Model predictions. However, for\n" +
+            "electron pair invariant masses above 100 GeV, three di-electron events and\n" +
+            "three tri-electron events are observed, compared to Standard Model expectations\n" +
+            "of 0.30 \\pm 0.04 and 0.23 \\pm 0.04, respectively.\n" +
+            "</summary>\n" +
+            "    <author xmlns=\"http://www.w3.org/2005/Atom\">\n" +
+            "      <name xmlns=\"http://www.w3.org/2005/Atom\">H1 Collaboration</name>\n" +
+            "    </author>\n" +
+            "    <arxiv:comment xmlns:arxiv=\"http://arxiv.org/schemas/atom\">23 pages, 8 figures and 4 tables</arxiv:comment>\n" +
+            "    <arxiv:journal_ref xmlns:arxiv=\"http://arxiv.org/schemas/atom\">Eur.Phys.J. C31 (2003) 17-29</arxiv:journal_ref>\n" +
+            "    <link xmlns=\"http://www.w3.org/2005/Atom\" href=\"http://arxiv.org/abs/hep-ex/0307015v1\" rel=\"alternate\" type=\"text/html\"/>\n" +
+            "    <link xmlns=\"http://www.w3.org/2005/Atom\" title=\"pdf\" href=\"http://arxiv.org/pdf/hep-ex/0307015v1\" rel=\"related\" type=\"application/pdf\"/>\n" +
+            "    <arxiv:primary_category xmlns:arxiv=\"http://arxiv.org/schemas/atom\" term=\"hep-ex\" scheme=\"http://arxiv.org/schemas/atom\"/>\n" +
+            "    <category term=\"hep-ex\" scheme=\"http://arxiv.org/schemas/atom\"/>\n" +
             "  </entry>\n" +
             "</feed>";
 

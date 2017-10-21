@@ -48,8 +48,8 @@ public class ArxivFeedParser {
                 entries.add(readEntry(parser));
 
             } else if (name.equals("link")) {
-                arxivFeed.setLink(""); //TODO
-                skip(parser);
+                arxivFeed.setLink(parser.getAttributeValue(null, "href"));
+                parser.nextTag();
 
             } else if (name.equals("title")) {
                 arxivFeed.setTitle(readText(parser, "title"));
@@ -126,10 +126,19 @@ public class ArxivFeedParser {
                 skip(parser); //TODO: remove
 
             } else if (name.equals("arxiv:primary_category")) {
-                //primary category
-                //comment
-//                    arxivFeedEntry.setPrimaryCategory(readCategoryTerm(parser, "primary"));
-                skip(parser); //TODO: remove
+                arxivFeedEntry.setPrimaryCategory(parser.getAttributeValue(null, "term"));
+                skip(parser);
+
+            } else if (name.equals("arxiv:comment")) {
+                arxivFeedEntry.setComment(readText(parser, "arxiv:comment"));
+
+            } else if (name.equals("arxiv:journal_ref")) {
+                arxivFeedEntry.setJournalRef(parser.getAttributeValue(null, "term"));
+                skip(parser);
+
+            } else if (name.equals("arxiv:doi")) {
+                arxivFeedEntry.setJournalRef(parser.getAttributeValue(null, "term"));
+                skip(parser);
 
             } else if (name.equals("category")) {
                 List<String> categories = arxivFeedEntry.getCategories();
@@ -137,9 +146,8 @@ public class ArxivFeedParser {
                     categories = new ArrayList<>();
                 }
 
-//                categories.add(readCategoryTerm(parser, "category"));
-                skip(parser); // TODO: remove
-
+                categories.add(parser.getAttributeValue(null, "term"));
+                parser.nextTag();
                 arxivFeedEntry.setCategories(categories);
 
             } else {
