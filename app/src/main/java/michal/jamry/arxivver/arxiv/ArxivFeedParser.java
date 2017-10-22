@@ -19,7 +19,7 @@ import java.util.List;
 public class ArxivFeedParser {
 
     private static final String ns = null;
-    private static final DateFormat arxivEntryDateFormat = new SimpleDateFormat("YYYY-MM-DD'T'HH:MM:SSZ");
+    private static final DateFormat arxivEntryDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
 
     public ArxivFeed parse(InputStream in) throws XmlPullParserException, IOException {
         try {
@@ -188,7 +188,7 @@ public class ArxivFeedParser {
     @Nullable
     private Date readDate(XmlPullParser parser, String tagName) {
         try {
-            String str = readText(parser, tagName).replace("Z", "+0000");
+            String str = readText(parser, tagName);
             return arxivEntryDateFormat.parse(str);
 
         } catch (ParseException | IOException | XmlPullParserException e) {
