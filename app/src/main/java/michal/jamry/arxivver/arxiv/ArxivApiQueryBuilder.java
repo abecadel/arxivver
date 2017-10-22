@@ -1,11 +1,13 @@
 package michal.jamry.arxivver.arxiv;
 
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ArxivApiQueryBuilder {
 
-    public static final String ARXIV_HOST_PREFIX = "http://export.arxiv.org/api/query?";
+    private static final String ARXIV_HOST_PREFIX = "http://export.arxiv.org/api/query?";
     private String query;
 
     private ArxivApiQueryBuilder(String prefix) {
@@ -25,8 +27,24 @@ public class ArxivApiQueryBuilder {
     }
 
     public ArxivApiQueryBuilder withSearchQuery(String searchQuery) {
-        addParam("search_query=" + searchQuery);
+        return withSearchQuery(Arrays.asList(new String[]{searchQuery}));
+    }
+
+    public ArxivApiQueryBuilder withSearchQuery(List<String> searchQueryList) {
+        String param = "search_query=";
+
+        for (int i = 0; i < searchQueryList.size(); i++) {
+            if (i > 0) {
+                param += "+AND+";
+            }
+            param += searchQueryList.get(i);
+        }
+        addParam(param);
         return this;
+    }
+
+    public ArxivApiQueryBuilder withId(String id) {
+        return withIdList(Collections.singletonList(id));
     }
 
     public ArxivApiQueryBuilder withIdList(List<String> ids) {
@@ -38,7 +56,7 @@ public class ArxivApiQueryBuilder {
             }
             param += ids.get(i);
         }
-
+        addParam(param);
         return this;
     }
 
