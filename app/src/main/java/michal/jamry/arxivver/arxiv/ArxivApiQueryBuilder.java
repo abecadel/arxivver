@@ -47,6 +47,31 @@ public class ArxivApiQueryBuilder {
         return this;
     }
 
+    public ArxivApiQueryBuilder withSortByRelevance() {
+        addParam("sortBy=relevance");
+        return this;
+    }
+
+    public ArxivApiQueryBuilder withSortByLastUpdatedDate() {
+        addParam("sortBy=lastUpdatedDate");
+        return this;
+    }
+
+    public ArxivApiQueryBuilder withSortBySubmittedDate() {
+        addParam("sortBy=submittedDate");
+        return this;
+    }
+
+    public ArxivApiQueryBuilder withSortOrderAscending() {
+        addParam("sortOrder=ascending");
+        return this;
+    }
+
+    public ArxivApiQueryBuilder withSortOrderDescending() {
+        addParam("sortOrder=descending");
+        return this;
+    }
+
     public ArxivApiQueryBuilder withMaxResults(int maxResults) {
         addParam("max_result=" + maxResults);
         return this;
