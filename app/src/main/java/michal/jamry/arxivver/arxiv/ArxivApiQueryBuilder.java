@@ -1,7 +1,7 @@
 package michal.jamry.arxivver.arxiv;
 
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,6 +9,7 @@ public class ArxivApiQueryBuilder {
 
     private static final String ARXIV_HOST_PREFIX = "http://export.arxiv.org/api/query?";
     private String query;
+    private List<String> searchQueryList = new ArrayList<>();
 
     private ArxivApiQueryBuilder(String prefix) {
         query = prefix;
@@ -22,24 +23,9 @@ public class ArxivApiQueryBuilder {
         return new ArxivApiQueryBuilder(prefix);
     }
 
-    public String build() {
-        return query;
-    }
 
     public ArxivApiQueryBuilder withSearchQuery(String searchQuery) {
-        return withSearchQuery(Arrays.asList(new String[]{searchQuery}));
-    }
-
-    public ArxivApiQueryBuilder withSearchQuery(List<String> searchQueryList) {
-        String param = "search_query=";
-
-        for (int i = 0; i < searchQueryList.size(); i++) {
-            if (i > 0) {
-                param += "+AND+";
-            }
-            param += searchQueryList.get(i);
-        }
-        addParam(param);
+        addParam("search_query=" + searchQuery);
         return this;
     }
 
@@ -101,5 +87,20 @@ public class ArxivApiQueryBuilder {
         }
 
         query = query + param;
+    }
+
+    // Search query
+    public ArxivApiQueryBuilder and(){
+        searchQueryList.add("+AND+");
+        return this;
+    }
+
+    public ArxivApiQueryBuilder or(){
+        searchQueryList.add("+OR+");
+        return this;
+    }
+
+    public String build() {
+        return query;
     }
 }
