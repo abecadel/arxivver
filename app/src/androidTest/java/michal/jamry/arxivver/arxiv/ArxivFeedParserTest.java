@@ -80,7 +80,12 @@ public class ArxivFeedParserTest {
         InputStream stream = new ByteArrayInputStream(FEED.getBytes(StandardCharsets.UTF_8.name()));
 
         //when
-        arxivFeedParser.parse(stream);
+        ArxivFeed arxivFeed = arxivFeedParser.parse(stream);
+
+        //then
+        assertNotNull(arxivFeed);
+        assertNotNull(arxivFeed.getEntries());
+        assertEquals(10, arxivFeed.getEntries().size());
     }
 
 
