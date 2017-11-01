@@ -14,7 +14,7 @@ import michal.jamry.arxivver.arxiv.ArxivFeed;
 import michal.jamry.arxivver.arxiv.ArxivFeedEntry;
 import michal.jamry.arxivver.arxiv.ArxivRetrievePublicationsTask;
 
-public class MainActivity extends AppCompatActivity {
+public class MainTimelineActivity extends AppCompatActivity {
 
     private ListView list;
     private ArrayAdapter<String> adapter;
