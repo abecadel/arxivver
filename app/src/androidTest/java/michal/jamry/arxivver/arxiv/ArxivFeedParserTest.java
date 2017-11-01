@@ -61,7 +61,7 @@ public class ArxivFeedParserTest {
 
         assertNotNull(arxivFeedEntry.getAuthorList());
         assertEquals(1, arxivFeedEntry.getAuthorList().size());
-        assertEquals("H1 Collaboration", arxivFeedEntry.getAuthorList().get(0));
+        assertEquals("H1 Collaboration", arxivFeedEntry.getAuthorList().get(0).getName());
 
         assertEquals("23 pages, 8 figures and 4 tables", arxivFeedEntry.getComment());
         assertEquals("Eur.Phys.J. C31 (2003) 17-29", arxivFeedEntry.getJournalRef());
@@ -86,6 +86,21 @@ public class ArxivFeedParserTest {
         assertNotNull(arxivFeed);
         assertNotNull(arxivFeed.getEntries());
         assertEquals(10, arxivFeed.getEntries().size());
+    }
+
+    @Test
+    public void parseProperBigExample() throws Exception {
+        //given
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        InputStream stream = classLoader.getResourceAsStream("BIGFEED.xml");
+
+        //when
+        ArxivFeed arxivFeed = arxivFeedParser.parse(stream);
+
+        //then
+        assertNotNull(arxivFeed);
+        assertNotNull(arxivFeed.getEntries());
+        assertEquals(100, arxivFeed.getEntries().size());
     }
 
 

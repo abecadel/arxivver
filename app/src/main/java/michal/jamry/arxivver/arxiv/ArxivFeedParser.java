@@ -128,7 +128,7 @@ public class ArxivFeedParser {
 
                     break;
                 case "author":
-                    List<String> authorList = arxivFeedEntry.getAuthorList();
+                    List<ArxivFeedEntryAuthor> authorList = arxivFeedEntry.getAuthorList();
                     if (authorList == null) {
                         authorList = new ArrayList<>();
                     }
@@ -189,21 +189,36 @@ public class ArxivFeedParser {
         return arxivFeedEntry;
     }
 
-    //TODO affiliation possible
-    private String readAuthor(XmlPullParser parser) throws IOException, XmlPullParserException {
-        String result = "";
+    private ArxivFeedEntryAuthor readAuthor(XmlPullParser parser) throws IOException, XmlPullParserException {
+        String name = null;
+        String affiliation = null;
         parser.require(XmlPullParser.START_TAG, ns, "author");
         parser.nextTag();
 
         if (parser.next() == XmlPullParser.TEXT) {
-            result = parser.getText();
+            name = parser.getText();
             parser.nextTag();
         }
 
         parser.require(XmlPullParser.END_TAG, ns, "name");
         parser.nextTag();
+
+        String tagName = parser.getName();
+        if (tagName.equals("arxiv:affiliation")) {
+            parser.require(XmlPullParser.START_TAG, ns, "arxiv:affiliation");
+
+            if (parser.next() == XmlPullParser.TEXT) {
+                affiliation = parser.getText();
+                parser.nextTag();
+            }
+
+            parser.require(XmlPullParser.END_TAG, ns, "arxiv:affiliation");
+            parser.nextTag();
+        }
+
         parser.require(XmlPullParser.END_TAG, ns, "author");
-        return result;
+
+        return new ArxivFeedEntryAuthor(name, affiliation);
     }
 
     private String readText(XmlPullParser parser, String tagName) throws IOException, XmlPullParserException {

@@ -10,7 +10,7 @@ public class ArxivFeedEntry {
     private Date published;
     private List<Date> updatedList;
     private String summary;
-    private List<String> authorList;
+    private List<ArxivFeedEntryAuthor> authorList;
     private Map<String, String> links;
     private List<String> categories;
     private String primaryCategory;
@@ -58,11 +58,11 @@ public class ArxivFeedEntry {
         this.summary = summary;
     }
 
-    public List<String> getAuthorList() {
+    public List<ArxivFeedEntryAuthor> getAuthorList() {
         return authorList;
     }
 
-    public void setAuthorList(List<String> authorList) {
+    public void setAuthorList(List<ArxivFeedEntryAuthor> authorList) {
         this.authorList = authorList;
     }
 
