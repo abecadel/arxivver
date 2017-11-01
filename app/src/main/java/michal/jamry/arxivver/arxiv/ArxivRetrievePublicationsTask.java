@@ -10,17 +10,17 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class ArxivRetrievePublicationsTask extends AsyncTask<String, Void, ArxivFeed> {
+    protected Exception exception = null;
+
     @Override
     protected ArxivFeed doInBackground(String... urls) {
         try {
             return loadXmlFromNetwork(urls[0]);
-        } catch (IOException e) {
-//            return getResources().getString(R.string.connection_error);
-        } catch (XmlPullParserException e) {
-//            return getResources().getString(R.string.xml_error);
+        } catch (Exception e) {
+            exception = e;
         }
 
-        return null; //TODO: remove
+        return null;
     }
 
     private ArxivFeed loadXmlFromNetwork(String urlString) throws XmlPullParserException, IOException {

@@ -53,6 +53,11 @@ public class MainActivity extends AppCompatActivity {
                     for (ArxivFeedEntry arxivFeedEntry : arxivFeed.getEntries()) {
                         addItem(arxivFeedEntry.getTitle());
                     }
+                } else {
+                    //error handling
+                    if (this.exception != null) {
+
+                    }
                 }
             }
         }.execute(query);
