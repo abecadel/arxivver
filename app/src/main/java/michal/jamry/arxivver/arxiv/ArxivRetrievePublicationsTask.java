@@ -23,14 +23,6 @@ public class ArxivRetrievePublicationsTask extends AsyncTask<String, Void, Arxiv
         return null; //TODO: remove
     }
 
-    @Override
-    protected void onPostExecute(ArxivFeed result) {
-//        setContentView(R.layout.main);
-//        // Displays the HTML string in the UI via a WebView
-//        WebView myWebView = (WebView) findViewById(R.id.webview);
-//        myWebView.loadData(result, "text/html", null);
-    }
-
     private ArxivFeed loadXmlFromNetwork(String urlString) throws XmlPullParserException, IOException {
         InputStream stream = null;
         ArxivFeedParser arxivFeedParser = new ArxivFeedParser();
@@ -51,11 +43,10 @@ public class ArxivRetrievePublicationsTask extends AsyncTask<String, Void, Arxiv
     private InputStream downloadUrl(String urlString) throws IOException {
         URL url = new URL(urlString);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setReadTimeout(10000 /* milliseconds */);
-        conn.setConnectTimeout(15000 /* milliseconds */);
+        conn.setReadTimeout(10000);
+        conn.setConnectTimeout(15000);
         conn.setRequestMethod("GET");
         conn.setDoInput(true);
-        // Starts the query
         conn.connect();
         return conn.getInputStream();
     }

@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-class ArxivFeedEntry {
+public class ArxivFeedEntry {
     private String title;
     private String id;
     private Date published;

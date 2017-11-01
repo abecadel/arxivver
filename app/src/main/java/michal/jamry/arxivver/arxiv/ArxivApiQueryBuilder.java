@@ -77,7 +77,7 @@ public class ArxivApiQueryBuilder {
     }
 
     public ArxivApiQueryBuilder withMaxResults(int maxResults) {
-        addParam("max_result=" + maxResults);
+        addParam("max_results=" + maxResults);
         return this;
     }
 

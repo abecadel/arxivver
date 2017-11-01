@@ -15,6 +15,14 @@ public class ArxivApiQueryBuilderTest {
     }
 
     @Test
+    public void maxResultsSearchQuery() {
+        //when
+        String query = ArxivApiQueryBuilder.aBuilder().withSearchQuery("LSTM").withMaxResults(100).build();
+        //then
+        assertEquals("http://export.arxiv.org/api/query?search_query=LSTM&max_results=100", query);
+    }
+
+    @Test
     public void andSearchQuery() {
         //when
         String query = ArxivApiQueryBuilder.aBuilder().withSearchQuery("all:electron+AND+all:proton").build();
