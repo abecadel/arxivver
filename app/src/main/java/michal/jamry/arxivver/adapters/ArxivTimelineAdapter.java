@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -17,8 +16,9 @@ import michal.jamry.arxivver.arxiv.ArxivApiQueryBuilder;
 import michal.jamry.arxivver.arxiv.ArxivFeed;
 import michal.jamry.arxivver.arxiv.ArxivFeedEntry;
 import michal.jamry.arxivver.arxiv.ArxivRetrievePublicationsTask;
+import michal.jamry.arxivver.models.ArxivTimelineEntryViewHolder;
 
-public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineAdapter.ArxivTimelineEntryViewHolder> {
+public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntryViewHolder> {
 
     private String query;
     private List<ArxivFeedEntry> arxivFeedEntryList = new ArrayList<>();
@@ -62,20 +62,9 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineAdap
         notifyDataSetChanged();
     }
 
-    class ArxivTimelineEntryViewHolder extends RecyclerView.ViewHolder {
-        TextView listItemNumberView;
-
-        ArxivTimelineEntryViewHolder(View itemView) {
-            super(itemView);
-
-            listItemNumberView = itemView.findViewById(R.id.tv_item_number);
-        }
-
-        void bind(ArxivFeedEntry arxivFeedEntry) {
-            listItemNumberView.setText(arxivFeedEntry.getTitle());
-        }
+    void handleError(Exception e) {
+        Log.d("AdapterError", "Error downloading feed");
     }
-
 
     private static class TimelineAdapterArxivRetrievePublicationsTask extends ArxivRetrievePublicationsTask {
         private WeakReference<ArxivTimelineAdapter> adapterWeakReference;
@@ -89,8 +78,7 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineAdap
             if (arxivFeed != null) {
                 adapterWeakReference.get().addArxivFeed(arxivFeed);
             } else {
-                //handle error
-                Log.d("Error downloading feed", exception.getLocalizedMessage());
+                adapterWeakReference.get().handleError(exception);
             }
         }
     }
