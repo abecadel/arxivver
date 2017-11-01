@@ -1,12 +1,12 @@
 package michal.jamry.arxivver.activities;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import michal.jamry.arxivver.R;
@@ -40,7 +40,10 @@ public class MainTimelineActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    @SuppressLint("StaticFieldLeak") //won't cause leak
+    public void handleError(Exception e) {
+
+    }
+
     public void loadPage() {
         String query = ArxivApiQueryBuilder
                 .aBuilder()
@@ -48,21 +51,27 @@ public class MainTimelineActivity extends AppCompatActivity {
                 .withMaxResults(100)
                 .build();
 
-        new ArxivRetrievePublicationsTask() {
-            @Override
-            protected void onPostExecute(ArxivFeed arxivFeed) {
-                if (arxivFeed != null) {
-                    for (ArxivFeedEntry arxivFeedEntry : arxivFeed.getEntries()) {
-                        addItem(arxivFeedEntry.getTitle());
-                    }
-                } else {
-                    //error handling
-                    if (this.exception != null) {
+        new MainTimelineArxivRetrievePublicationsTask(this)
+                .execute(query);
+    }
 
-                    }
+    private static class MainTimelineArxivRetrievePublicationsTask extends ArxivRetrievePublicationsTask {
+        private WeakReference<MainTimelineActivity> activity;
+
+        public MainTimelineArxivRetrievePublicationsTask(MainTimelineActivity activity) {
+            this.activity = new WeakReference<>(activity);
+        }
+
+        @Override
+        protected void onPostExecute(ArxivFeed arxivFeed) {
+            if (arxivFeed != null) {
+                for (ArxivFeedEntry arxivFeedEntry : arxivFeed.getEntries()) {
+                    activity.get().addItem(arxivFeedEntry.getTitle());
                 }
+            } else {
+                activity.get().handleError(exception);
             }
-        }.execute(query);
+        }
     }
 
 }
