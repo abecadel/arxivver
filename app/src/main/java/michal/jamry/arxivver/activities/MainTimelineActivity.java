@@ -1,5 +1,6 @@
 package michal.jamry.arxivver.activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -39,6 +40,7 @@ public class MainTimelineActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+    @SuppressLint("StaticFieldLeak") //won't cause leak
     public void loadPage() {
         String query = ArxivApiQueryBuilder
                 .aBuilder()
