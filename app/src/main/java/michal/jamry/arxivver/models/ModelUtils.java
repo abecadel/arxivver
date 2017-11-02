@@ -1,7 +1,11 @@
 package michal.jamry.arxivver.models;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 public class ModelUtils {
     private static final int TWEET_LENGTH = 288;
+    private static final DateFormat dateFormat = DateFormat.getDateInstance();
 
     public static String elipsis(String txt) {
         if (txt == null) {
@@ -25,5 +29,9 @@ public class ModelUtils {
         }
 
         return removeNewlines(elipsis(txt.trim()));
+    }
+
+    public static String prepareDate(Date date) {
+        return dateFormat.format(date);
     }
 }

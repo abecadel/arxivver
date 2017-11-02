@@ -7,7 +7,7 @@
     android:background="@color/colorTimelineEntryBackground">
 
     <TextView
-        android:id="@+id/entry_title"
+        android:id="@+id/ENTRY_TITLE"
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
         tools:text="#42" />
 
     <TextView
-        android:id="@+id/entry_summary"
+        android:id="@+id/ENTRY_SUMMARY"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -34,6 +34,17 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/entry_title" />
+        app:layout_constraintTop_toBottomOf="@+id/ENTRY_TITLE" />
+
+    <TextView
+        android:id="@+id/PUBLISHED_DATE_TEXT_VIEW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ENTRY_SUMMARY" />
 
 </android.support.constraint.ConstraintLayout>
