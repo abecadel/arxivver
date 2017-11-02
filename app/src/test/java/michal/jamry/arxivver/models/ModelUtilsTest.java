@@ -28,6 +28,13 @@ public class ModelUtilsTest {
         assertNull(ret);
     }
 
+    @Test
+    public void preparedLongText() {
+        String ret = ModelUtils.prepareTxt(longString);
+
+        assertEquals(preparedLongText, ret);
+    }
+
     String longString = "In this paper, we propose a variety of Long Short-Term Memory (LSTM) based\n" +
             "models for sequence tagging. These models include LSTM networks, bidirectional\n" +
             "LSTM (BI-LSTM) networks, LSTM with a Conditional Random Field (CRF) layer\n" +
@@ -45,4 +52,6 @@ public class ModelUtilsTest {
             "models for sequence tagging. These models include LSTM networks, bidirectional\n" +
             "LSTM (BI-LSTM) networks, LSTM with a Conditional Random Field (CRF) layer\n" +
             "(LSTM-CRF) and bidirectional LSTM with a CRF layer (BI-LSTM-...";
+
+    String preparedLongText = "In this paper, we propose a variety of Long Short-Term Memory (LSTM) based models for sequence tagging. These models include LSTM networks, bidirectional LSTM (BI-LSTM) networks, LSTM with a Conditional Random Field (CRF) layer (LSTM-CRF) and bidirectional LSTM with a CRF layer (BI-LSTM-...";
 }
