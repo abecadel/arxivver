@@ -76,6 +76,18 @@ public class ModelUtils {
         return ret.toString();
     }
 
+    public static String prepareLongAuthorsList(List<ArxivFeedEntryAuthor> authorList) {
+        StringBuilder ret = new StringBuilder();
+        for (int i = 0; i < authorList.size(); i++) {
+            if (i > 0) {
+                ret.append(", ");
+            }
+            ret.append(authorList.get(i).getName());
+        }
+
+        return ret.toString();
+    }
+
     //https://stackoverflow.com/a/45727769/1062744
     public static void makeLinks(TextView textView, List<String> links, List<ClickableSpan> clickableSpans) {
         SpannableString spannableString = new SpannableString(textView.getText());

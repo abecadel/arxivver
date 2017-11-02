@@ -14,7 +14,7 @@ android {
     defaultConfig {
         applicationId "michal.jamry.arxivver"
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -40,9 +40,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:27.0.0'
-    compile 'com.google.dagger:dagger:2.12'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.12'
+    compile 'com.google.code.gson:gson:2.8.2'
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:2.11.0'
     implementation 'com.android.support:recyclerview-v7:27.0.0'

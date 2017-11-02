@@ -4,17 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
-
-import java.util.List;
-
-import javax.inject.Inject;
+import android.widget.ToggleButton;
 
 import michal.jamry.arxivver.R;
 import michal.jamry.arxivver.arxiv.ArxivFeedEntry;
-import michal.jamry.arxivver.arxiv.ArxivFeedEntryAuthor;
 import michal.jamry.arxivver.persistence.LocalEntriesStorage;
 
 import static michal.jamry.arxivver.models.ModelUtils.prepareDate;
+import static michal.jamry.arxivver.models.ModelUtils.prepareLongAuthorsList;
 import static michal.jamry.arxivver.models.ModelUtils.removeNewlines;
 
 public class ArxivEntryActivity extends AppCompatActivity {
@@ -22,13 +19,13 @@ public class ArxivEntryActivity extends AppCompatActivity {
     public static final String ARXIV_FEED_ENTRY_TYPE_OBJ = "michal.jamry.arxivver.activities.ArxivEntryActivity.ARXIV_FEED_ENTRY_TYPE_OBJ";
     private ArxivFeedEntry arxivFeedEntry;
 
-    @Inject
     LocalEntriesStorage localEntriesStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arxiv_entry);
+        localEntriesStorage = new LocalEntriesStorage(getApplicationContext());
 
         Intent intent = getIntent();
         arxivFeedEntry = (ArxivFeedEntry) intent.getSerializableExtra(ARXIV_FEED_ENTRY_TYPE_OBJ);
@@ -43,21 +40,17 @@ public class ArxivEntryActivity extends AppCompatActivity {
         date.setText(prepareDate(arxivFeedEntry.getPublished()));
 
         TextView authors = findViewById(R.id.authorsTextView);
-        authors.setText(prepareAuthors(arxivFeedEntry.getAuthorList()));
+        authors.setText(prepareLongAuthorsList(arxivFeedEntry.getAuthorList()));
 
-    }
-
-    private String prepareAuthors(List<ArxivFeedEntryAuthor> authorList) {
-        StringBuilder ret = new StringBuilder();
-
-        for (int i = 0; i < authorList.size(); i++) {
-            if (i > 0) {
-                ret.append(", ");
+        ToggleButton toggleButton = findViewById(R.id.entryActivityToggleButton);
+        toggleButton.setChecked(localEntriesStorage.checkedIfStored(arxivFeedEntry.getId()));
+        toggleButton.setOnCheckedChangeListener((compoundButton, state) -> {
+            if (state) {
+                localEntriesStorage.store(arxivFeedEntry);
+            } else {
+                localEntriesStorage.removeFromStorage(arxivFeedEntry.getId());
             }
-
-            ret.append(authorList.get(i).getName());
-        }
-
-        return ret.toString();
+        });
     }
+
 }
