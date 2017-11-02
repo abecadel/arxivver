@@ -1,5 +1,6 @@
 package michal.jamry.arxivver.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,12 @@ public class ArxivTimelineActivity extends AppCompatActivity {
     private ArxivTimelineAdapter arxivTimelineAdapter;
     private RecyclerView recyclerView;
 
+    private void openEntry(ArxivFeedEntry arxivFeedEntry){
+        Log.d("Clicked", arxivFeedEntry.toString());
+        Intent intent = new Intent(this, ArxivEntryActivity.class);
+        intent.putExtra(ArxivEntryActivity.ARXIV_FEED_ENTRY_TYPE_OBJ, arxivFeedEntry);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +34,7 @@ public class ArxivTimelineActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        EntryClickedListener entryTitleClickedListener = new EntryClickedListener() {
-            @Override
-            public void onClick(ArxivFeedEntry arxivFeedEntry) {
-                Log.d("Clicked", arxivFeedEntry.toString());
-            }
-        };
+        EntryClickedListener entryTitleClickedListener = this::openEntry;
         arxivTimelineAdapter = new ArxivTimelineAdapter("LSTM", entryTitleClickedListener);
 
         recyclerView.setAdapter(arxivTimelineAdapter);

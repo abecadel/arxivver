@@ -70,6 +70,7 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View view) {
+                //get clicked item feed entry
                 RecyclerView recyclerView = (RecyclerView) view.getParent().getParent();
                 int pos = recyclerView.getChildLayoutPosition((View) view.getParent());
                 ArxivFeedEntry arxivFeedEntry = arxivFeedEntryList.get(pos);

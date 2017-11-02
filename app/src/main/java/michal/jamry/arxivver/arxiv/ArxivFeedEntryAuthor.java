@@ -1,6 +1,8 @@
 package michal.jamry.arxivver.arxiv;
 
-public class ArxivFeedEntryAuthor {
+import java.io.Serializable;
+
+public class ArxivFeedEntryAuthor implements Serializable {
     private String name;
     private String affiliation;
 

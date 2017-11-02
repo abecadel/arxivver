@@ -1,10 +1,11 @@
 package michal.jamry.arxivver.arxiv;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class ArxivFeedEntry {
+public class ArxivFeedEntry implements Serializable {
     private String title;
     private String id;
     private Date published;
