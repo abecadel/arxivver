@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import java.util.Collections;
 
@@ -24,6 +25,7 @@ public class ArxivTimelineEntryViewHolder extends RecyclerView.ViewHolder {
     TextView authors;
     TextView categories;
     ClickableSpan onTitleClickListener;
+    ToggleButton toggleButton;
 
     public ArxivTimelineEntryViewHolder(View itemView, ClickableSpan onTitleClickListener) {
         super(itemView);
@@ -34,10 +36,10 @@ public class ArxivTimelineEntryViewHolder extends RecyclerView.ViewHolder {
         publishedDate = itemView.findViewById(R.id.publishedDateEntryPage);
         authors = itemView.findViewById(R.id.AUTHORS);
         categories = itemView.findViewById(R.id.CATEGORIES);
-
+        toggleButton = itemView.findViewById(R.id.toggleButton);
     }
 
-    public void bind(ArxivFeedEntry arxivFeedEntry) {
+    public void bind(ArxivFeedEntry arxivFeedEntry, boolean storedLocally) {
         String titleTxt = prepareTxt(arxivFeedEntry.getTitle());
         entryTitle.setText(titleTxt);
         makeLinks(entryTitle, Collections.singletonList(titleTxt), Collections.singletonList(onTitleClickListener));
@@ -46,6 +48,7 @@ public class ArxivTimelineEntryViewHolder extends RecyclerView.ViewHolder {
         publishedDate.setText(prepareDate(arxivFeedEntry.getPublished()));
         authors.setText(prepareShortAuthorsList(arxivFeedEntry.getAuthorList()));
         categories.setText(prepareCategories(arxivFeedEntry.getPrimaryCategory(), arxivFeedEntry.getCategories()));
+        toggleButton.setChecked(storedLocally);
     }
 
 }

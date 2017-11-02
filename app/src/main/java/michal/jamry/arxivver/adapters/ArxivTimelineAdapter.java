@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import michal.jamry.arxivver.R;
 import michal.jamry.arxivver.adapters.listeners.EntryClickedListener;
@@ -19,6 +20,7 @@ import michal.jamry.arxivver.arxiv.ArxivFeed;
 import michal.jamry.arxivver.arxiv.ArxivFeedEntry;
 import michal.jamry.arxivver.arxiv.ArxivRetrievePublicationsTask;
 import michal.jamry.arxivver.models.ArxivTimelineEntryViewHolder;
+import michal.jamry.arxivver.persistence.LocalEntriesStorage;
 
 public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntryViewHolder> {
 
@@ -30,10 +32,14 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
     private boolean loading = false;
     private List<ArxivFeedEntry> arxivFeedEntryList = new ArrayList<>();
     private EntryClickedListener entryTitleClickedListener;
+    private LocalEntriesStorage localEntriesStorage;
+    private Map<String, ArxivFeedEntry> storedEntries;
 
-    public ArxivTimelineAdapter(String query, EntryClickedListener entryTitleClickedListener) {
+    public ArxivTimelineAdapter(String query, LocalEntriesStorage localEntriesStorage, EntryClickedListener entryTitleClickedListener) {
         this.query = query;
         this.entryTitleClickedListener = entryTitleClickedListener;
+        this.localEntriesStorage = localEntriesStorage;
+        storedEntries = localEntriesStorage.getAll();
         retrieveFeed(query, 0, FETCHED_BATCH_SIZE * 2);
     }
 
@@ -83,7 +89,8 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
 
     @Override
     public void onBindViewHolder(ArxivTimelineEntryViewHolder holder, int position) {
-        holder.bind(arxivFeedEntryList.get(position));
+        ArxivFeedEntry arxivFeedEntry = arxivFeedEntryList.get(position);
+        holder.bind(arxivFeedEntry, storedEntries.containsKey(arxivFeedEntry.getId()));
     }
 
     @Override
