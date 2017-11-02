@@ -60,13 +60,10 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
     @Override
     public ArxivTimelineEntryViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
-        int layoutIdForListItem = R.layout.arxiv_timeline_entry_layout;
         LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.arxiv_timeline_entry_layout, viewGroup, false);
 
-        View view = inflater.inflate(layoutIdForListItem, viewGroup, false);
-        ArxivTimelineEntryViewHolder viewHolder = new ArxivTimelineEntryViewHolder(view);
-
-        return viewHolder;
+        return new ArxivTimelineEntryViewHolder(view);
     }
 
     @Override

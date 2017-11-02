@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import michal.jamry.arxivver.R;
 import michal.jamry.arxivver.adapters.ArxivTimelineAdapter;
@@ -21,7 +20,7 @@ public class ArxivTimelineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.arxiv_timeline_layout);
 
-        recyclerView = findViewById(R.id.rv_numbers);
+        recyclerView = findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
@@ -46,5 +45,6 @@ public class ArxivTimelineActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 }

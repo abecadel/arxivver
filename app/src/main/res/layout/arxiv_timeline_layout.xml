@@ -7,9 +7,9 @@
     tools:context="michal.jamry.arxivver.activities.ArxivTimelineActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_numbers"
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical" />
+        android:scrollbars="none" />
 
 </android.support.constraint.ConstraintLayout>
