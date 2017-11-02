@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="michal.jamry.arxivver.activities.ArxivEntryActivity"
+        android:background="@color/colorTimelineEntryBackground"
         tools:layout_editor_absoluteY="81dp">
 
         <TextView
@@ -28,6 +29,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/PUBLISHED_DATE_TEXT_VIEW"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="2015-08-09"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/authorsTextView"
+            app:layout_constraintTop_toBottomOf="@+id/authorsTextView" />
+
+        <TextView
             android:id="@+id/summaryTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -35,17 +46,9 @@
             android:paddingRight="16dp"
             android:text="In this paper, we propose a variety of Long Short-Term Memory (LSTM) based models for sequence tagging. These models include LSTM networks, bidirectional LSTM (BI-LSTM) networks, LSTM with a Conditional Random Field (CRF) layer (LSTM-CRF) and bidirectional LSTM with a CRF layer (BI-LSTM-..."
             android:layout_gravity="center_vertical|right"
-        app:layout_constraintStart_toStartOf="@+id/authorsTextView"
-            app:layout_constraintTop_toBottomOf="@+id/authorsTextView" />
+        app:layout_constraintStart_toStartOf="@+id/PUBLISHED_DATE_TEXT_VIEW"
+            app:layout_constraintTop_toBottomOf="@+id/PUBLISHED_DATE_TEXT_VIEW" />
 
-        <TextView
-            android:id="@+id/PUBLISHED_DATE_TEXT_VIEW"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="2015-08-09"
-            app:layout_constraintStart_toStartOf="@+id/summaryTextView"
-            app:layout_constraintTop_toBottomOf="@+id/summaryTextView" />
 
         <TextView
             android:id="@+id/authorsTextView"
