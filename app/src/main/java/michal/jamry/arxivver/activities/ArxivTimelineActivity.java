@@ -16,7 +16,6 @@ public class ArxivTimelineActivity extends AppCompatActivity {
 
     private ArxivTimelineAdapter arxivTimelineAdapter;
     private RecyclerView recyclerView;
-    private LocalEntriesStorage localEntriesStorage;
 
     private void openEntry(ArxivFeedEntry arxivFeedEntry) {
         Log.d("Clicked", arxivFeedEntry.toString());
@@ -29,14 +28,13 @@ public class ArxivTimelineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.arxiv_timeline_layout);
-        localEntriesStorage = new LocalEntriesStorage(getApplicationContext());
 
         recyclerView = findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        arxivTimelineAdapter = new ArxivTimelineAdapter("LSTM", localEntriesStorage, this::openEntry);
+        arxivTimelineAdapter = new ArxivTimelineAdapter("LSTM", new LocalEntriesStorage(getApplicationContext()), this::openEntry);
 
         recyclerView.setAdapter(arxivTimelineAdapter);
 
