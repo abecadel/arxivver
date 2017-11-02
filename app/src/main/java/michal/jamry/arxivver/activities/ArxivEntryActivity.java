@@ -7,9 +7,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import michal.jamry.arxivver.R;
 import michal.jamry.arxivver.arxiv.ArxivFeedEntry;
 import michal.jamry.arxivver.arxiv.ArxivFeedEntryAuthor;
+import michal.jamry.arxivver.persistence.LocalEntriesStorage;
 
 import static michal.jamry.arxivver.models.ModelUtils.prepareDate;
 import static michal.jamry.arxivver.models.ModelUtils.removeNewlines;
@@ -18,6 +21,9 @@ public class ArxivEntryActivity extends AppCompatActivity {
 
     public static final String ARXIV_FEED_ENTRY_TYPE_OBJ = "michal.jamry.arxivver.activities.ArxivEntryActivity.ARXIV_FEED_ENTRY_TYPE_OBJ";
     private ArxivFeedEntry arxivFeedEntry;
+
+    @Inject
+    LocalEntriesStorage localEntriesStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
