@@ -10,6 +10,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
+import michal.jamry.arxivver.arxiv.ArxivFeedEntryAuthor;
+
 public class ModelUtils {
     private static final int TWEET_LENGTH = 288;
     private static final DateFormat dateFormat = DateFormat.getDateInstance();
@@ -54,6 +56,24 @@ public class ModelUtils {
         }
 
         return txt.toString();
+    }
+
+    public static String prepareShortAuthorsList(List<ArxivFeedEntryAuthor> authorList) {
+        StringBuilder ret = new StringBuilder();
+
+        for (int i = 0; i < authorList.size() && i < 3; i++) {
+            if (i > 0) {
+                ret.append(", ");
+            }
+
+            ret.append(authorList.get(i).getName());
+        }
+
+        if (authorList.size() > 3) {
+            ret.append("...");
+        }
+
+        return ret.toString();
     }
 
     //https://stackoverflow.com/a/45727769/1062744
