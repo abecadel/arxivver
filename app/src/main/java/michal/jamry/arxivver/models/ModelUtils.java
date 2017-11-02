@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class ModelUtils {
     private static final int TWEET_LENGTH = 288;
@@ -41,12 +42,26 @@ public class ModelUtils {
         return dateFormat.format(date);
     }
 
+    public static String prepareCategories(String primaryCategory, List<String> categories) {
+        StringBuilder txt = new StringBuilder(primaryCategory);
+
+        if (categories.size() > 0) {
+            for (String category : categories) {
+                if (!primaryCategory.equals(category)) {
+                    txt.append(", ").append(category);
+                }
+            }
+        }
+
+        return txt.toString();
+    }
+
     //https://stackoverflow.com/a/45727769/1062744
-    public static void makeLinks(TextView textView, String[] links, ClickableSpan[] clickableSpans) {
+    public static void makeLinks(TextView textView, List<String> links, List<ClickableSpan> clickableSpans) {
         SpannableString spannableString = new SpannableString(textView.getText());
-        for (int i = 0; i < links.length; i++) {
-            ClickableSpan clickableSpan = clickableSpans[i];
-            String link = links[i];
+        for (int i = 0; i < links.size(); i++) {
+            ClickableSpan clickableSpan = clickableSpans.get(i);
+            String link = links.get(i);
 
             int startIndexOfLink = textView.getText().toString().indexOf(link);
             spannableString.setSpan(clickableSpan, startIndexOfLink, startIndexOfLink + link.length(),
