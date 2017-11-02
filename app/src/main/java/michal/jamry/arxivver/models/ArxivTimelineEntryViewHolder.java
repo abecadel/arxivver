@@ -8,17 +8,23 @@ import android.widget.TextView;
 import michal.jamry.arxivver.R;
 import michal.jamry.arxivver.arxiv.ArxivFeedEntry;
 
+import static michal.jamry.arxivver.models.ModelUtils.prepareTxt;
+
 public class ArxivTimelineEntryViewHolder extends RecyclerView.ViewHolder {
-    TextView listItemNumberView;
+    TextView entryTitle;
+    TextView entrySummary;
 
     public ArxivTimelineEntryViewHolder(View itemView) {
         super(itemView);
 
-        listItemNumberView = itemView.findViewById(R.id.tv_item_number);
+        entryTitle = itemView.findViewById(R.id.entry_title);
+        entrySummary = itemView.findViewById(R.id.entry_summary);
     }
 
     public void bind(ArxivFeedEntry arxivFeedEntry) {
-        listItemNumberView.setText(arxivFeedEntry.getTitle());
+        entryTitle.setText(prepareTxt(arxivFeedEntry.getTitle()));
+        entrySummary.setText(prepareTxt(arxivFeedEntry.getSummary()));
     }
+
 }
 
