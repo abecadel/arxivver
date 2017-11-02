@@ -24,22 +24,22 @@ public class ArxivEntryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_arxiv_entry);
+        setContentView(R.layout.arxiv_entry_page_layout);
         localEntriesStorage = new LocalEntriesStorage(getApplicationContext());
 
         Intent intent = getIntent();
         arxivFeedEntry = (ArxivFeedEntry) intent.getSerializableExtra(ARXIV_FEED_ENTRY_TYPE_OBJ);
 
-        TextView entryTitle = findViewById(R.id.titleTextView);
+        TextView entryTitle = findViewById(R.id.titleEntryPage);
         entryTitle.setText(removeNewlines(arxivFeedEntry.getTitle().trim()));
 
-        TextView summary = findViewById(R.id.summaryTextView);
+        TextView summary = findViewById(R.id.summaryEntryPage);
         summary.setText(removeNewlines(arxivFeedEntry.getSummary().trim()));
 
-        TextView date = findViewById(R.id.PUBLISHED_DATE_TEXT_VIEW);
+        TextView date = findViewById(R.id.publishedDateEntryPage);
         date.setText(prepareDate(arxivFeedEntry.getPublished()));
 
-        TextView authors = findViewById(R.id.authorsTextView);
+        TextView authors = findViewById(R.id.authorsEntryPage);
         authors.setText(prepareLongAuthorsList(arxivFeedEntry.getAuthorList()));
 
         ToggleButton toggleButton = findViewById(R.id.entryActivityToggleButton);

@@ -31,7 +31,7 @@ public class ArxivTimelineEntryViewHolder extends RecyclerView.ViewHolder {
 
         entryTitle = itemView.findViewById(R.id.ENTRY_TITLE);
         entrySummary = itemView.findViewById(R.id.ENTRY_SUMMARY);
-        publishedDate = itemView.findViewById(R.id.PUBLISHED_DATE_TEXT_VIEW);
+        publishedDate = itemView.findViewById(R.id.publishedDateEntryPage);
         authors = itemView.findViewById(R.id.AUTHORS);
         categories = itemView.findViewById(R.id.CATEGORIES);
 
