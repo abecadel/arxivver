@@ -10,6 +10,7 @@ import michal.jamry.arxivver.R;
 import michal.jamry.arxivver.arxiv.ArxivFeedEntry;
 import michal.jamry.arxivver.persistence.LocalEntriesStorage;
 
+import static michal.jamry.arxivver.models.ModelUtils.prepareCategories;
 import static michal.jamry.arxivver.models.ModelUtils.prepareDate;
 import static michal.jamry.arxivver.models.ModelUtils.prepareLongAuthorsList;
 import static michal.jamry.arxivver.models.ModelUtils.removeNewlines;
@@ -51,6 +52,9 @@ public class ArxivEntryActivity extends AppCompatActivity {
                 localEntriesStorage.removeFromStorage(arxivFeedEntry.getId());
             }
         });
+
+        TextView categories = findViewById(R.id.categoriesEntryPage);
+        categories.setText(prepareCategories(arxivFeedEntry.getPrimaryCategory(), arxivFeedEntry.getCategories()));
     }
 
 }

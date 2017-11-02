@@ -9,7 +9,6 @@ import android.util.Log;
 
 import michal.jamry.arxivver.R;
 import michal.jamry.arxivver.adapters.ArxivTimelineAdapter;
-import michal.jamry.arxivver.adapters.listeners.EntryClickedListener;
 import michal.jamry.arxivver.arxiv.ArxivFeedEntry;
 
 public class ArxivTimelineActivity extends AppCompatActivity {
@@ -17,7 +16,7 @@ public class ArxivTimelineActivity extends AppCompatActivity {
     private ArxivTimelineAdapter arxivTimelineAdapter;
     private RecyclerView recyclerView;
 
-    private void openEntry(ArxivFeedEntry arxivFeedEntry){
+    private void openEntry(ArxivFeedEntry arxivFeedEntry) {
         Log.d("Clicked", arxivFeedEntry.toString());
         Intent intent = new Intent(this, ArxivEntryActivity.class);
         intent.putExtra(ArxivEntryActivity.ARXIV_FEED_ENTRY_TYPE_OBJ, arxivFeedEntry);
@@ -34,8 +33,7 @@ public class ArxivTimelineActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        EntryClickedListener entryTitleClickedListener = this::openEntry;
-        arxivTimelineAdapter = new ArxivTimelineAdapter("LSTM", entryTitleClickedListener);
+        arxivTimelineAdapter = new ArxivTimelineAdapter("LSTM", this::openEntry);
 
         recyclerView.setAdapter(arxivTimelineAdapter);
 
