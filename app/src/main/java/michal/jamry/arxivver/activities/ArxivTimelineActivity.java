@@ -1,11 +1,14 @@
 package michal.jamry.arxivver.activities;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
 
 import michal.jamry.arxivver.R;
 import michal.jamry.arxivver.adapters.ArxivTimelineAdapter;
@@ -18,7 +21,6 @@ public class ArxivTimelineActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
 
     private void openEntry(ArxivFeedEntry arxivFeedEntry) {
-        Log.d("Clicked", arxivFeedEntry.toString());
         Intent intent = new Intent(this, ArxivEntryActivity.class);
         intent.putExtra(ArxivEntryActivity.ARXIV_FEED_ENTRY_TYPE_OBJ, arxivFeedEntry);
         startActivity(intent);
@@ -54,5 +56,20 @@ public class ArxivTimelineActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search_menu, menu);
+
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+
+        return super.onCreateOptionsMenu(menu);
     }
 }
