@@ -63,6 +63,16 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.arxiv_timeline_entry_layout, viewGroup, false);
 
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("CLICKED", view.toString());
+//                int itemPosition = recyclerView.getChildLayoutPosition(view);
+//                String item = mList.get(itemPosition);
+//                Toast.makeText(mContext, item, Toast.LENGTH_LONG).show();
+            }
+        });
+
         return new ArxivTimelineEntryViewHolder(view);
     }
 

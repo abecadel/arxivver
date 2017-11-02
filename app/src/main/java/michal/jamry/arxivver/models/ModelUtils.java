@@ -1,5 +1,11 @@
 package michal.jamry.arxivver.models;
 
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.widget.TextView;
+
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -33,5 +39,20 @@ public class ModelUtils {
 
     public static String prepareDate(Date date) {
         return dateFormat.format(date);
+    }
+
+    //https://stackoverflow.com/a/45727769/1062744
+    public static void makeLinks(TextView textView, String[] links, ClickableSpan[] clickableSpans) {
+        SpannableString spannableString = new SpannableString(textView.getText());
+        for (int i = 0; i < links.length; i++) {
+            ClickableSpan clickableSpan = clickableSpans[i];
+            String link = links[i];
+
+            int startIndexOfLink = textView.getText().toString().indexOf(link);
+            spannableString.setSpan(clickableSpan, startIndexOfLink, startIndexOfLink + link.length(),
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+        textView.setText(spannableString, TextView.BufferType.SPANNABLE);
     }
 }
