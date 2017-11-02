@@ -20,16 +20,27 @@ import michal.jamry.arxivver.models.ArxivTimelineEntryViewHolder;
 
 public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntryViewHolder> {
 
+    private static final int FETCHED_BATCH_SIZE = 25;
     private String query;
+    private int totalResults;
+    private int startIndex;
+    private int itemsPerPage;
     private List<ArxivFeedEntry> arxivFeedEntryList = new ArrayList<>();
 
     public ArxivTimelineAdapter(String query) {
         this.query = query;
 
+        retrieveFeed(query, 0, FETCHED_BATCH_SIZE);
+    }
+
+    private void retrieveFeed(String query, int start, int maxResults) {
         String fullquery = ArxivApiQueryBuilder
                 .aBuilder()
                 .withSearchQuery(query)
-                .withMaxResults(100)
+                .withSortBySubmittedDate()
+                .withSortOrderDescending()
+                .withStart(start)
+                .withMaxResults(maxResults)
                 .build();
 
         new TimelineAdapterArxivRetrievePublicationsTask(this).execute(fullquery);
@@ -58,12 +69,16 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
     }
 
     void addArxivFeed(ArxivFeed arxivFeed) {
+        totalResults = arxivFeed.getTotalResults();
+        startIndex = arxivFeed.getStartIndex();
+        itemsPerPage = arxivFeed.getItemsPerPage();
         arxivFeedEntryList.addAll(arxivFeed.getEntries());
         notifyDataSetChanged();
     }
 
     void handleError(Exception e) {
         Log.d("AdapterError", "Error downloading feed");
+//        Toast.makeText(this, "", Toast.LENGTH_LONG).show();
     }
 
     private static class TimelineAdapterArxivRetrievePublicationsTask extends ArxivRetrievePublicationsTask {
