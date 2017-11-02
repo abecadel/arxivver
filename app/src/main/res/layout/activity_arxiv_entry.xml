@@ -4,27 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="michal.jamry.arxivver.activities.ArxivEntryActivity">
+    tools:context="michal.jamry.arxivver.activities.ArxivEntryActivity"
+    tools:layout_editor_absoluteY="81dp">
 
     <TextView
         android:id="@+id/titleTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="Bidirectional LSTM-CRF Models for Sequence Tagging"
         android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/summaryTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="In this paper, we propose a variety of Long Short-Term Memory (LSTM) based models for sequence tagging. These models include LSTM networks, bidirectional LSTM (BI-LSTM) networks, LSTM with a Conditional Random Field (CRF) layer (LSTM-CRF) and bidirectional LSTM with a CRF layer (BI-LSTM-..."
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintStart_toStartOf="@+id/authorsTextView"
+        app:layout_constraintTop_toBottomOf="@+id/authorsTextView" />
 
     <TextView
         android:id="@+id/PUBLISHED_DATE_TEXT_VIEW"
@@ -32,6 +33,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="2015-08-09"
-        app:layout_constraintTop_toBottomOf="@+id/summaryTextView"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintStart_toStartOf="@+id/summaryTextView"
+        app:layout_constraintTop_toBottomOf="@+id/summaryTextView" />
+
+    <TextView
+        android:id="@+id/authorsTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Gakuto Kurata"
+        app:layout_constraintStart_toStartOf="@+id/titleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 </android.support.constraint.ConstraintLayout>

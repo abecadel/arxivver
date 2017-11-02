@@ -2,6 +2,7 @@ package michal.jamry.arxivver.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,9 +28,11 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
     private int itemsPerPage;
     private boolean loading = false;
     private List<ArxivFeedEntry> arxivFeedEntryList = new ArrayList<>();
+    private EntryTitleClickedListener entryTitleClickedListener;
 
-    public ArxivTimelineAdapter(String query) {
+    public ArxivTimelineAdapter(String query, EntryTitleClickedListener entryTitleClickedListener) {
         this.query = query;
+        this.entryTitleClickedListener = entryTitleClickedListener;
         retrieveFeed(query, 0, FETCHED_BATCH_SIZE * 2);
     }
 
@@ -63,17 +66,16 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.arxiv_timeline_entry_layout, viewGroup, false);
 
-//        view.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.d("CLICKED", view.toString());
-////                int itemPosition = recyclerView.getChildLayoutPosition(view);
-////                String item = mList.get(itemPosition);
-////                Toast.makeText(mContext, item, Toast.LENGTH_LONG).show();
-//            }
-//        });
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View view) {
+                int pos = 0;
+                ArxivFeedEntry arxivFeedEntry = arxivFeedEntryList.get(pos);
+                entryTitleClickedListener.onClick(arxivFeedEntry);
+            }
+        };
 
-        return new ArxivTimelineEntryViewHolder(view);
+        return new ArxivTimelineEntryViewHolder(view, clickableSpan);
     }
 
     @Override

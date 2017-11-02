@@ -2,6 +2,7 @@ package michal.jamry.arxivver.models;
 
 
 import android.support.v7.widget.RecyclerView;
+import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,6 +12,7 @@ import michal.jamry.arxivver.R;
 import michal.jamry.arxivver.arxiv.ArxivFeedEntry;
 import michal.jamry.arxivver.arxiv.ArxivFeedEntryAuthor;
 
+import static michal.jamry.arxivver.models.ModelUtils.makeLinks;
 import static michal.jamry.arxivver.models.ModelUtils.prepareDate;
 import static michal.jamry.arxivver.models.ModelUtils.prepareTxt;
 
@@ -19,9 +21,11 @@ public class ArxivTimelineEntryViewHolder extends RecyclerView.ViewHolder {
     TextView entrySummary;
     TextView publishedDate;
     TextView authors;
+    ClickableSpan onTitleClickListener;
 
-    public ArxivTimelineEntryViewHolder(View itemView) {
+    public ArxivTimelineEntryViewHolder(View itemView, ClickableSpan onTitleClickListener) {
         super(itemView);
+        this.onTitleClickListener = onTitleClickListener;
 
         entryTitle = itemView.findViewById(R.id.ENTRY_TITLE);
         entrySummary = itemView.findViewById(R.id.ENTRY_SUMMARY);
@@ -30,7 +34,10 @@ public class ArxivTimelineEntryViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(ArxivFeedEntry arxivFeedEntry) {
-        entryTitle.setText(prepareTxt(arxivFeedEntry.getTitle()));
+        String titleTxt = prepareTxt(arxivFeedEntry.getTitle());
+        entryTitle.setText(titleTxt);
+        makeLinks(entryTitle, new String[]{titleTxt}, new ClickableSpan[]{onTitleClickListener});
+
         entrySummary.setText(prepareTxt(arxivFeedEntry.getSummary()));
         publishedDate.setText(prepareDate(arxivFeedEntry.getPublished()));
         authors.setText(prepareAuthors(arxivFeedEntry.getAuthorList()));
