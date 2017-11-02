@@ -1,29 +1,50 @@
 package michal.jamry.arxivver.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import michal.jamry.arxivver.R;
 import michal.jamry.arxivver.adapters.ArxivTimelineAdapter;
 
 public class ArxivTimelineActivity extends AppCompatActivity {
 
-    private ArxivTimelineAdapter mAdapter;
-    private RecyclerView mNumbersList;
+    private ArxivTimelineAdapter arxivTimelineAdapter;
+    private RecyclerView recyclerView;
+
+    int pastVisiblesItems, visibleItemCount, totalItemCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.arxiv_timeline_layout);
 
-        mNumbersList = findViewById(R.id.rv_numbers);
+        recyclerView = findViewById(R.id.rv_numbers);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        mNumbersList.setLayoutManager(layoutManager);
-        mNumbersList.setHasFixedSize(true);
-        mAdapter = new ArxivTimelineAdapter("LSTM");
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        arxivTimelineAdapter = new ArxivTimelineAdapter("LSTM");
 
-        mNumbersList.setAdapter(mAdapter);
+        recyclerView.setAdapter(arxivTimelineAdapter);
+
+        //infinity scroll
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+                if (dy > 0) //check for scroll down
+                {
+                    visibleItemCount = layoutManager.getChildCount();
+                    totalItemCount = layoutManager.getItemCount();
+                    pastVisiblesItems = layoutManager.findFirstVisibleItemPosition();
+
+                    if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                        arxivTimelineAdapter.getMoreFeed();
+                    }
+                }
+            }
+        });
     }
 }
