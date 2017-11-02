@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import michal.jamry.arxivver.R;
+import michal.jamry.arxivver.adapters.listeners.EntryClickedListener;
 import michal.jamry.arxivver.arxiv.ArxivApiQueryBuilder;
 import michal.jamry.arxivver.arxiv.ArxivFeed;
 import michal.jamry.arxivver.arxiv.ArxivFeedEntry;
@@ -28,9 +29,9 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
     private int itemsPerPage;
     private boolean loading = false;
     private List<ArxivFeedEntry> arxivFeedEntryList = new ArrayList<>();
-    private EntryTitleClickedListener entryTitleClickedListener;
+    private EntryClickedListener entryTitleClickedListener;
 
-    public ArxivTimelineAdapter(String query, EntryTitleClickedListener entryTitleClickedListener) {
+    public ArxivTimelineAdapter(String query, EntryClickedListener entryTitleClickedListener) {
         this.query = query;
         this.entryTitleClickedListener = entryTitleClickedListener;
         retrieveFeed(query, 0, FETCHED_BATCH_SIZE * 2);

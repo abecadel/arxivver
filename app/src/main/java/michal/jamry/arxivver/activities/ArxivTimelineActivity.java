@@ -8,7 +8,7 @@ import android.util.Log;
 
 import michal.jamry.arxivver.R;
 import michal.jamry.arxivver.adapters.ArxivTimelineAdapter;
-import michal.jamry.arxivver.adapters.EntryTitleClickedListener;
+import michal.jamry.arxivver.adapters.listeners.EntryClickedListener;
 import michal.jamry.arxivver.arxiv.ArxivFeedEntry;
 
 public class ArxivTimelineActivity extends AppCompatActivity {
@@ -16,7 +16,6 @@ public class ArxivTimelineActivity extends AppCompatActivity {
     private ArxivTimelineAdapter arxivTimelineAdapter;
     private RecyclerView recyclerView;
 
-    int pastVisiblesItems, visibleItemCount, totalItemCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +27,7 @@ public class ArxivTimelineActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        EntryTitleClickedListener entryTitleClickedListener = new EntryTitleClickedListener() {
+        EntryClickedListener entryTitleClickedListener = new EntryClickedListener() {
             @Override
             public void onClick(ArxivFeedEntry arxivFeedEntry) {
                 Log.d("Clicked", arxivFeedEntry.toString());
@@ -42,12 +41,10 @@ public class ArxivTimelineActivity extends AppCompatActivity {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-
-                if (dy > 0) //check for scroll down
-                {
-                    visibleItemCount = layoutManager.getChildCount();
-                    totalItemCount = layoutManager.getItemCount();
-                    pastVisiblesItems = layoutManager.findFirstVisibleItemPosition();
+                if (dy > 0) {
+                    int visibleItemCount = layoutManager.getChildCount();
+                    int totalItemCount = layoutManager.getItemCount();
+                    int pastVisiblesItems = layoutManager.findFirstVisibleItemPosition();
 
                     if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                         arxivTimelineAdapter.getMoreFeed();
