@@ -203,8 +203,7 @@ public class ArxivFeedParser {
         parser.require(XmlPullParser.END_TAG, ns, "name");
         parser.nextTag();
 
-        String tagName = parser.getName();
-        if (tagName.equals("arxiv:affiliation")) {
+        while (parser.getName().equals("arxiv:affiliation")) {
             parser.require(XmlPullParser.START_TAG, ns, "arxiv:affiliation");
 
             if (parser.next() == XmlPullParser.TEXT) {

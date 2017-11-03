@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
+import android.widget.Toast;
 
 import michal.jamry.arxivver.R;
 import michal.jamry.arxivver.adapters.ArxivTimelineAdapter;
@@ -59,7 +60,7 @@ public abstract class AbstractTimelineActivity extends AppCompatActivity {
 
             @Override
             public void handleErrors(String error, Exception e) {
-
+                handleAdapterError(error, e);
             }
         };
         arxivTimelineAdapter = new ArxivTimelineAdapter(getQuery(), new LocalEntriesStorage(getApplicationContext()), arxivTimelineAdapterCallbackListener);
@@ -111,5 +112,9 @@ public abstract class AbstractTimelineActivity extends AppCompatActivity {
         if (lastScrollPosition != 0) {
             ((LinearLayoutManager) recyclerView.getLayoutManager()).scrollToPosition(lastScrollPosition);
         }
+    }
+
+    private void handleAdapterError(String error, Exception e) {
+        Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT);
     }
 }
