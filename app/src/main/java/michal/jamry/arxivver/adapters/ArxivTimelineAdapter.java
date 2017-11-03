@@ -110,7 +110,7 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
 
     void handleError(Exception e) {
         Log.d("AdapterError", "Error downloading feed");
-//        Toast.makeText(this, "", Toast.LENGTH_LONG).show();
+        arxivTimelineAdapterCallbackListener.handleErrors("Error retrieving feed", e);
         loading = false;
     }
 

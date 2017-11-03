@@ -6,4 +6,5 @@ import michal.jamry.arxivver.arxiv.ArxivFeedEntry;
 public interface ArxivTimelineAdapterCallbackListener {
     void handleEntryLinkClicked(ArxivFeedEntry arxivFeedEntry);
     void handleDataRequestComplete();
+    void handleErrors(String error, Exception e);
 }
