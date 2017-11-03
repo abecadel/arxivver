@@ -21,7 +21,7 @@ import michal.jamry.arxivver.persistence.LocalEntriesStorage;
 public class ArxivTimelineActivity extends AppCompatActivity {
 
     public static final String ARXIV_TIMELINE_ACTIVITY_STORAGE = "MainTimelineStorage";
-    private static final String POSITION = "POSITION";
+    public static final String POSITION = "POSITION";
     private ArxivTimelineAdapter arxivTimelineAdapter;
     private RecyclerView recyclerView;
     private SharedPreferences sharedPreferences;
@@ -32,10 +32,10 @@ public class ArxivTimelineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.arxiv_timeline_layout);
+        sharedPreferences = getSharedPreferences(ARXIV_TIMELINE_ACTIVITY_STORAGE, 0);
         lastScrollPosition = sharedPreferences.getInt(POSITION, 0);
         recyclerView = findViewById(R.id.recycler_view);
 
-        sharedPreferences = getSharedPreferences(ARXIV_TIMELINE_ACTIVITY_STORAGE, 0);
 
         //setup recyclerview
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
