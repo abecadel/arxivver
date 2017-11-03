@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import michal.jamry.arxivver.R;
-import michal.jamry.arxivver.adapters.listeners.EntryClickedListener;
+import michal.jamry.arxivver.adapters.listeners.ArxivTimelineAdapterCallbackListener;
 import michal.jamry.arxivver.arxiv.ArxivApiQueryBuilder;
 import michal.jamry.arxivver.arxiv.ArxivFeed;
 import michal.jamry.arxivver.arxiv.ArxivFeedEntry;
@@ -31,13 +31,13 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
     private int itemsPerPage;
     private boolean loading = false;
     private List<ArxivFeedEntry> arxivFeedEntryList = new ArrayList<>();
-    private EntryClickedListener entryTitleClickedListener;
+    private ArxivTimelineAdapterCallbackListener arxivTimelineAdapterCallbackListener;
     private LocalEntriesStorage localEntriesStorage;
     private Map<String, ArxivFeedEntry> storedEntries;
 
-    public ArxivTimelineAdapter(String query, LocalEntriesStorage localEntriesStorage, EntryClickedListener entryTitleClickedListener) {
+    public ArxivTimelineAdapter(String query, LocalEntriesStorage localEntriesStorage, ArxivTimelineAdapterCallbackListener arxivTimelineAdapterCallbackListener) {
         this.query = query;
-        this.entryTitleClickedListener = entryTitleClickedListener;
+        this.arxivTimelineAdapterCallbackListener = arxivTimelineAdapterCallbackListener;
         this.localEntriesStorage = localEntriesStorage;
         storedEntries = localEntriesStorage.getAll();
         retrieveFeed(query, 0, FETCHED_BATCH_SIZE * 2);
@@ -80,7 +80,7 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
                 RecyclerView recyclerView = (RecyclerView) view.getParent().getParent();
                 int pos = recyclerView.getChildLayoutPosition((View) view.getParent());
                 ArxivFeedEntry arxivFeedEntry = arxivFeedEntryList.get(pos);
-                entryTitleClickedListener.onClick(arxivFeedEntry);
+                arxivTimelineAdapterCallbackListener.handleEntryLinkClicked(arxivFeedEntry);
             }
         };
 
@@ -98,13 +98,14 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
         return arxivFeedEntryList.size();
     }
 
-    void addArxivFeed(ArxivFeed arxivFeed) {
+    void handleData(ArxivFeed arxivFeed) {
         totalResults = arxivFeed.getTotalResults();
         startIndex = arxivFeed.getStartIndex();
         itemsPerPage = arxivFeed.getItemsPerPage();
         arxivFeedEntryList.addAll(arxivFeed.getEntries());
         notifyDataSetChanged();
         loading = false;
+        arxivTimelineAdapterCallbackListener.handleDataRequestComplete();
     }
 
     void handleError(Exception e) {
@@ -123,7 +124,7 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
         @Override
         protected void onPostExecute(ArxivFeed arxivFeed) {
             if (arxivFeed != null) {
-                adapterWeakReference.get().addArxivFeed(arxivFeed);
+                adapterWeakReference.get().handleData(arxivFeed);
             } else {
                 adapterWeakReference.get().handleError(exception);
             }
