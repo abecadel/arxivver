@@ -1,6 +1,7 @@
 package michal.jamry.arxivver.activities;
 
 import android.app.SearchManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -67,8 +68,9 @@ public class ArxivTimelineActivity extends AppCompatActivity {
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView =
                 (SearchView) menu.findItem(R.id.search).getActionView();
+        ComponentName componentName = new ComponentName(this, TimelineSearchActivity.class);
         searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
+                searchManager.getSearchableInfo(componentName));
 
         return super.onCreateOptionsMenu(menu);
     }
