@@ -1,15 +1,27 @@
 package michal.jamry.arxivver.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.SearchManager;
+import android.content.Intent;
 import android.os.Bundle;
 
-import michal.jamry.arxivver.R;
+public class TimelineSearchActivity extends AbstractTimelineActivity {
 
-public class TimelineSearchActivity extends AppCompatActivity {
+    private String query;
+
+    @Override
+    protected String getQuery() {
+        return query;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //retrieve search query
+        Intent intent = getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            query = intent.getStringExtra(SearchManager.QUERY);
+        }
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timeline_search);
     }
 }
