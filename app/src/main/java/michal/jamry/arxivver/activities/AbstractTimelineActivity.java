@@ -89,8 +89,8 @@ public abstract class AbstractTimelineActivity extends AppCompatActivity {
     }
 
     private void openEntry(ArxivFeedEntry arxivFeedEntry) {
-        Intent intent = new Intent(this, ArxivEntryActivity.class);
-        intent.putExtra(ArxivEntryActivity.ARXIV_FEED_ENTRY_TYPE_OBJ, arxivFeedEntry);
+        Intent intent = new Intent(this, PublicationActivity.class);
+        intent.putExtra(PublicationActivity.ARXIV_FEED_ENTRY_TYPE_OBJ, arxivFeedEntry);
         startActivity(intent);
     }
 

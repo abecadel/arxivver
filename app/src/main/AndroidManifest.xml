@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.ArxivEntryActivity"
+            android:name=".activities.PublicationActivity"
             android:parentActivityName=".activities.MainTimelineActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->

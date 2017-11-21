@@ -15,9 +15,9 @@ import static michal.jamry.arxivver.models.ModelUtils.prepareDate;
 import static michal.jamry.arxivver.models.ModelUtils.prepareLongAuthorsList;
 import static michal.jamry.arxivver.models.ModelUtils.removeNewlines;
 
-public class ArxivEntryActivity extends AppCompatActivity {
+public class PublicationActivity extends AppCompatActivity {
 
-    public static final String ARXIV_FEED_ENTRY_TYPE_OBJ = "michal.jamry.arxivver.activities.ArxivEntryActivity.ARXIV_FEED_ENTRY_TYPE_OBJ";
+    public static final String ARXIV_FEED_ENTRY_TYPE_OBJ = "michal.jamry.arxivver.activities.PublicationActivity.ARXIV_FEED_ENTRY_TYPE_OBJ";
     private ArxivFeedEntry arxivFeedEntry;
 
     LocalEntriesStorage localEntriesStorage;
