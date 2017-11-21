@@ -44,7 +44,8 @@
                 android:value=".activities.MainTimelineActivity" />
         </activity>
         <activity android:name=".activities.ChoosingActivity" />
-        <activity android:name=".activities.StarredActivity"></activity>
+        <activity android:name=".activities.StarredActivity" />
+        <activity android:name=".activities.SplashScreenActivity"></activity>
     </application>
 
 </manifest>
