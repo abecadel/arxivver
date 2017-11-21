@@ -4,6 +4,8 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 
+import michal.jamry.arxivver.R;
+
 public class TimelineSearchActivity extends AbstractTimelineActivity {
 
     private String query;
@@ -11,6 +13,11 @@ public class TimelineSearchActivity extends AbstractTimelineActivity {
     @Override
     protected String getQuery() {
         return query;
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.arxiv_timeline_layout;
     }
 
     @Override
