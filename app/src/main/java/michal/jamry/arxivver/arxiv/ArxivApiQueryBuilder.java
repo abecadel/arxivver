@@ -34,15 +34,15 @@ public class ArxivApiQueryBuilder {
     }
 
     public ArxivApiQueryBuilder withIdList(List<String> ids) {
-        String param = "id_list=";
+        StringBuilder param = new StringBuilder("id_list=");
 
         for (int i = 0; i < ids.size(); i++) {
             if (i > 0) {
-                param += ",";
+                param.append(",");
             }
-            param += ids.get(i);
+            param.append(ids.get(i));
         }
-        addParam(param);
+        addParam(param.toString());
         return this;
     }
 
