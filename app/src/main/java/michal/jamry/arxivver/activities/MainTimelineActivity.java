@@ -9,7 +9,7 @@ import android.view.Menu;
 
 import michal.jamry.arxivver.R;
 
-public class ArxivTimelineActivity extends AbstractTimelineActivity {
+public class MainTimelineActivity extends AbstractTimelineActivity {
     @Override
     protected String getQuery() {
         return "LSTM";
@@ -22,10 +22,10 @@ public class ArxivTimelineActivity extends AbstractTimelineActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search_menu, menu);
+        getMenuInflater().inflate(R.menu.main_timeline_search_menu, menu);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-        ComponentName componentName = new ComponentName(this, TimelineSearchActivity.class);
+        ComponentName componentName = new ComponentName(this, SearchActivity.class);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName));
 
         return super.onCreateOptionsMenu(menu);

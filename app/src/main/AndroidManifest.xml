@@ -6,31 +6,32 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".ArxivverApplication"
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light"
-        android:name=".ArxivverApplication">
-        <activity android:name=".activities.ArxivTimelineActivity">
+        android:theme="@style/Theme.AppCompat.Light">
+        <activity android:name=".activities.MainTimelineActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".activities.ArxivEntryActivity"
-            android:parentActivityName=".activities.ArxivTimelineActivity">
+            android:parentActivityName=".activities.MainTimelineActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.ArxivTimelineActivity" />
+                android:value=".activities.MainTimelineActivity" />
         </activity>
-        <activity android:name=".activities.TimelineSearchActivity" android:parentActivityName=".activities.ArxivTimelineActivity">
+        <activity
+            android:name=".activities.SearchActivity"
+            android:parentActivityName=".activities.MainTimelineActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -38,11 +39,12 @@
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.ArxivTimelineActivity" />
+                android:value=".activities.MainTimelineActivity" />
         </activity>
+        <activity android:name=".activities.ChoosingActivity" />
+        <activity android:name=".activities.StarredActivity"></activity>
     </application>
 
 </manifest>

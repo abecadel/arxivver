@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import michal.jamry.arxivver.R;
 
-public class TimelineSearchActivity extends AbstractTimelineActivity {
+public class SearchActivity extends AbstractTimelineActivity {
 
     private String query;
 
