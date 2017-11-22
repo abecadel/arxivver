@@ -55,6 +55,6 @@ public class StarredActivity extends AppCompatActivity {
     }
 
     private void handleAdapterError(String error, Exception e) {
-        Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT);
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 }
