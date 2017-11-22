@@ -13,7 +13,7 @@ android {
     buildToolsVersion '27.0.0'
     defaultConfig {
         applicationId "michal.jamry.arxivver"
-        minSdkVersion 19
+        minSdkVersion 24
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -46,4 +46,11 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:2.11.0'
     implementation 'com.android.support:recyclerview-v7:27.0.0'
+}
+
+task createJavadocs(type: Javadoc) {
+    source = project.android.sourceSets.main.java.srcDirs
+    options.linkSource true
+    classpath += project.files(project.android.getBootClasspath().join(File.pathSeparator))
+    failOnError false
 }

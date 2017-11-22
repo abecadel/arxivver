@@ -13,6 +13,9 @@ import michal.jamry.arxivver.adapters.listeners.ArxivTimelineAdapterCallbackList
 import michal.jamry.arxivver.arxiv.ArxivFeedEntry;
 import michal.jamry.arxivver.persistence.LocalEntriesStorage;
 
+/**
+ * The type Starred activity.
+ */
 public class StarredActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;

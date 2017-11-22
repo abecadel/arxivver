@@ -7,12 +7,32 @@ import android.content.Context;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 
-import michal.jamry.arxivver.R;
+import java.util.List;
 
+import michal.jamry.arxivver.R;
+import michal.jamry.arxivver.arxiv.ArxivApiQueryBuilder;
+import michal.jamry.arxivver.configuration.MainTimelineConfiguration;
+
+/**
+ * The type Main timeline activity.
+ */
 public class MainTimelineActivity extends AbstractTimelineActivity {
+
     @Override
     protected String getQuery() {
-        return "LSTM";
+        MainTimelineConfiguration mainTimelineConfiguration = new MainTimelineConfiguration(getBaseContext());
+        ArxivApiQueryBuilder arxivApiQueryBuilder = ArxivApiQueryBuilder.aBuilder();
+        List<String> params = mainTimelineConfiguration.getQueryParts();
+
+        for (int i = 0; i < params.size(); i++) {
+            if (i > 0) {
+                arxivApiQueryBuilder.or();
+            }
+
+            arxivApiQueryBuilder.withSearchQueryParam(params.get(i));
+        }
+
+        return arxivApiQueryBuilder.build();
     }
 
     @Override

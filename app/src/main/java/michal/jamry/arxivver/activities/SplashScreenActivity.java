@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import michal.jamry.arxivver.R;
 import michal.jamry.arxivver.configuration.MainTimelineConfiguration;
 
+/**
+ * The type Splash screen activity.
+ */
 public class SplashScreenActivity extends AppCompatActivity {
 
     @Override

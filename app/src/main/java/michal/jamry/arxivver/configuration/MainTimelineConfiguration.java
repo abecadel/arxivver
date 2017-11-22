@@ -42,9 +42,14 @@ public class MainTimelineConfiguration {
      * @return the query parts
      */
     public List<String> getQueryParts() {
-        List<String> ret = new ArrayList<>();
-        ret.addAll(Arrays.asList(sharedPreferences.getString(KEY_NAME, null).split(";")));
-        return ret;
+        String val = sharedPreferences.getString(KEY_NAME, null);
+        if (val != null) {
+            List<String> ret = new ArrayList<>();
+            ret.addAll(Arrays.asList(val.split(";")));
+            return ret;
+        }
+
+        return null;
     }
 
     /**

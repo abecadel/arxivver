@@ -15,17 +15,36 @@ import michal.jamry.arxivver.arxiv.ArxivFeedEntry;
 import michal.jamry.arxivver.persistence.LocalEntriesStorage;
 
 
+/**
+ * The type Abstract timeline activity.
+ */
 public abstract class AbstractTimelineActivity extends AppCompatActivity {
 
+    /**
+     * The constant ARXIV_TIMELINE_ACTIVITY_STORAGE.
+     */
     public static final String ARXIV_TIMELINE_ACTIVITY_STORAGE = "MainTimelineStorage";
+    /**
+     * The constant POSITION.
+     */
     public static final String POSITION = "POSITION";
     private ArxivTimelineAdapter arxivTimelineAdapter;
     private RecyclerView recyclerView;
     private SharedPreferences sharedPreferences;
     private int lastScrollPosition = 0;
 
+    /**
+     * Gets query.
+     *
+     * @return the query
+     */
     protected abstract String getQuery();
 
+    /**
+     * Gets layout.
+     *
+     * @return the layout
+     */
     protected abstract int getLayout();
 
     @Override

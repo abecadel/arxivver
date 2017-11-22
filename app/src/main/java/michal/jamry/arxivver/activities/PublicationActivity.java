@@ -18,8 +18,14 @@ import static michal.jamry.arxivver.models.ModelUtils.prepareDate;
 import static michal.jamry.arxivver.models.ModelUtils.prepareLongAuthorsList;
 import static michal.jamry.arxivver.models.ModelUtils.removeNewlines;
 
+/**
+ * The type Publication activity.
+ */
 public class PublicationActivity extends AppCompatActivity {
 
+    /**
+     * The constant ARXIV_FEED_ENTRY_TYPE_OBJ.
+     */
     public static final String ARXIV_FEED_ENTRY_TYPE_OBJ = "michal.jamry.arxivver.activities.PublicationActivity.ARXIV_FEED_ENTRY_TYPE_OBJ";
     private static final String MIME_PDF = "application/pdf";
     private ArxivFeedEntry arxivFeedEntry;

@@ -51,7 +51,7 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
 
         String fullquery = ArxivApiQueryBuilder
                 .aBuilder()
-                .withSearchQuery(query)
+                .withFullSearchQuery(query)
                 .withSortBySubmittedDate()
                 .withSortOrderDescending()
                 .withStart(start)

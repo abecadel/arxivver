@@ -6,6 +6,9 @@ import android.os.Bundle;
 
 import michal.jamry.arxivver.R;
 
+/**
+ * The type Search activity.
+ */
 public class SearchActivity extends AbstractTimelineActivity {
 
     private String query;

@@ -15,6 +15,9 @@ import java.util.List;
 import michal.jamry.arxivver.R;
 import michal.jamry.arxivver.configuration.MainTimelineConfiguration;
 
+/**
+ * The type Choosing activity.
+ */
 public class ChoosingActivity extends AppCompatActivity {
 
     private AutoCompleteTextView autoCompleteTextView;

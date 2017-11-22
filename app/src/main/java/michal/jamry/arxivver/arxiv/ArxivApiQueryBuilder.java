@@ -39,12 +39,12 @@ public class ArxivApiQueryBuilder {
 
 
     /**
-     * With search query arxiv api query builder.
+     * With full search query arxiv api query builder.
      *
      * @param searchQuery the search query
      * @return the arxiv api query builder
      */
-    public ArxivApiQueryBuilder withSearchQuery(String searchQuery) {
+    public ArxivApiQueryBuilder withFullSearchQuery(String searchQuery) {
         addParam("search_query=" + searchQuery);
         return this;
     }
@@ -164,7 +164,7 @@ public class ArxivApiQueryBuilder {
      * @return the arxiv api query builder
      */
 // Search query
-    public ArxivApiQueryBuilder and(){
+    public ArxivApiQueryBuilder and() {
         searchQueryList.add("+AND+");
         return this;
     }
@@ -174,8 +174,19 @@ public class ArxivApiQueryBuilder {
      *
      * @return the arxiv api query builder
      */
-    public ArxivApiQueryBuilder or(){
+    public ArxivApiQueryBuilder or() {
         searchQueryList.add("+OR+");
+        return this;
+    }
+
+    /**
+     * With search query param arxiv api query builder.
+     *
+     * @param param the param
+     * @return the arxiv api query builder
+     */
+    public ArxivApiQueryBuilder withSearchQueryParam(String param) {
+        searchQueryList.add(param);
         return this;
     }
 
@@ -185,6 +196,15 @@ public class ArxivApiQueryBuilder {
      * @return the string
      */
     public String build() {
+        if (searchQueryList.size() > 0) {
+            StringBuilder sb = new StringBuilder();
+            for (String s : searchQueryList) {
+                sb.append(s);
+            }
+
+            withFullSearchQuery(sb.toString());
+        }
+
         return query;
     }
 }
