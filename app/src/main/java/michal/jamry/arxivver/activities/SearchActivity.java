@@ -5,16 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import michal.jamry.arxivver.R;
+import michal.jamry.arxivver.arxiv.ArxivApiQueryBuilder;
 
 /**
  * Activity showing results of searched query.
  */
 public class SearchActivity extends AbstractTimelineActivity {
 
-    private String query;
+    private ArxivApiQueryBuilder query;
 
     @Override
-    protected String getQuery() {
+    protected ArxivApiQueryBuilder getQuery() {
         return query;
     }
 
@@ -29,7 +30,7 @@ public class SearchActivity extends AbstractTimelineActivity {
         //retrieve search query
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            query = intent.getStringExtra(SearchManager.QUERY);
+            query = ArxivApiQueryBuilder.aBuilder().withFullSearchQuery(intent.getStringExtra(SearchManager.QUERY));
         }
 
         super.onCreate(savedInstanceState);

@@ -11,6 +11,7 @@ import android.widget.Toast;
 import michal.jamry.arxivver.R;
 import michal.jamry.arxivver.adapters.ArxivTimelineAdapter;
 import michal.jamry.arxivver.adapters.listeners.ArxivTimelineAdapterCallbackListener;
+import michal.jamry.arxivver.arxiv.ArxivApiQueryBuilder;
 import michal.jamry.arxivver.arxiv.ArxivFeedEntry;
 import michal.jamry.arxivver.persistence.LocalEntriesStorage;
 
@@ -38,7 +39,7 @@ public abstract class AbstractTimelineActivity extends AppCompatActivity {
      *
      * @return the query
      */
-    protected abstract String getQuery();
+    protected abstract ArxivApiQueryBuilder getQuery();
 
     /**
      * Gets layout.

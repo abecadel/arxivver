@@ -19,7 +19,7 @@ import michal.jamry.arxivver.configuration.MainTimelineConfiguration;
 public class MainTimelineActivity extends AbstractTimelineActivity {
 
     @Override
-    protected String getQuery() {
+    protected ArxivApiQueryBuilder getQuery() {
         MainTimelineConfiguration mainTimelineConfiguration = new MainTimelineConfiguration(getBaseContext());
         ArxivApiQueryBuilder arxivApiQueryBuilder = ArxivApiQueryBuilder.aBuilder();
         List<String> params = mainTimelineConfiguration.getQueryParts();
@@ -32,7 +32,7 @@ public class MainTimelineActivity extends AbstractTimelineActivity {
             arxivApiQueryBuilder.withSearchQueryParam(params.get(i));
         }
 
-        return arxivApiQueryBuilder.build();
+        return arxivApiQueryBuilder;
     }
 
     @Override

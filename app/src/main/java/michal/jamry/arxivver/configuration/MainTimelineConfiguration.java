@@ -33,7 +33,14 @@ public class MainTimelineConfiguration {
      * @return the boolean
      */
     public boolean isAlreadyConfigured() {
-        return sharedPreferences.contains(KEY_NAME);
+        if (sharedPreferences.contains(KEY_NAME)) {
+            String val = sharedPreferences.getString(KEY_NAME, null);
+            if (val != null && val.length() > 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

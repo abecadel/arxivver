@@ -25,7 +25,7 @@ import michal.jamry.arxivver.persistence.LocalEntriesStorage;
 public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntryViewHolder> {
 
     private static final int FETCHED_BATCH_SIZE = 25;
-    private String query;
+    private ArxivApiQueryBuilder query;
     private int totalResults;
     private int startIndex;
     private int itemsPerPage;
@@ -35,7 +35,7 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
     private LocalEntriesStorage localEntriesStorage;
     private Map<String, ArxivFeedEntry> storedEntries;
 
-    public ArxivTimelineAdapter(String query, LocalEntriesStorage localEntriesStorage, ArxivTimelineAdapterCallbackListener arxivTimelineAdapterCallbackListener) {
+    public ArxivTimelineAdapter(ArxivApiQueryBuilder query, LocalEntriesStorage localEntriesStorage, ArxivTimelineAdapterCallbackListener arxivTimelineAdapterCallbackListener) {
         this.query = query;
         this.arxivTimelineAdapterCallbackListener = arxivTimelineAdapterCallbackListener;
         this.localEntriesStorage = localEntriesStorage;
@@ -44,14 +44,20 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
     }
 
     private void retrieveFeed(String query, int start, int maxResults) {
+        ArxivApiQueryBuilder arxivApiQueryBuilder = ArxivApiQueryBuilder
+                .aBuilder()
+                .withFullSearchQuery(query);
+
+        retrieveFeed(arxivApiQueryBuilder, start, maxResults);
+    }
+
+    private void retrieveFeed(ArxivApiQueryBuilder arxivApiQueryBuilder, int start, int maxResults) {
         if (loading) {
             return;
         }
         loading = true;
 
-        String fullquery = ArxivApiQueryBuilder
-                .aBuilder()
-                .withFullSearchQuery(query)
+        String fullquery = arxivApiQueryBuilder
                 .withSortBySubmittedDate()
                 .withSortOrderDescending()
                 .withStart(start)
