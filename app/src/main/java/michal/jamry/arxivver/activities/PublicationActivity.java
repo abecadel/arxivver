@@ -1,9 +1,12 @@
 package michal.jamry.arxivver.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import michal.jamry.arxivver.R;
@@ -18,9 +21,10 @@ import static michal.jamry.arxivver.models.ModelUtils.removeNewlines;
 public class PublicationActivity extends AppCompatActivity {
 
     public static final String ARXIV_FEED_ENTRY_TYPE_OBJ = "michal.jamry.arxivver.activities.PublicationActivity.ARXIV_FEED_ENTRY_TYPE_OBJ";
+    private static final String MIME_PDF = "application/pdf";
     private ArxivFeedEntry arxivFeedEntry;
 
-    LocalEntriesStorage localEntriesStorage;
+    private LocalEntriesStorage localEntriesStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,23 @@ public class PublicationActivity extends AppCompatActivity {
 
         TextView categories = findViewById(R.id.categoriesEntryPage);
         categories.setText(prepareCategories(arxivFeedEntry.getPrimaryCategory(), arxivFeedEntry.getCategories()));
+
+        Button openPdfButton = findViewById(R.id.openpdfbutton);
+        openPdfButton.setOnClickListener(view -> {
+            String url = arxivFeedEntry.getLinks().get(MIME_PDF);
+
+            if (url != null) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+                browserIntent.setDataAndType(Uri.parse(url), MIME_PDF);
+
+                Intent chooser = Intent.createChooser(browserIntent, "Choose how to open pdf");
+                chooser.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                startActivity(chooser);
+            } else {
+                Toast.makeText(getBaseContext(), "Pdf link is missing", Toast.LENGTH_LONG);
+            }
+        });
     }
 
 }

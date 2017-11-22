@@ -11,6 +11,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="32dp"
         tools:context="michal.jamry.arxivver.activities.ArxivEntryPageActivity"
         tools:layout_editor_absoluteY="81dp">
 
@@ -18,12 +19,12 @@
             android:id="@+id/titleEntryPage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:paddingRight="16dp"
             android:text="Bidirectional LSTM-CRF Models for Sequence Tagging"
             android:textStyle="bold"
-            android:layout_gravity="center_vertical|right"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,11 +42,11 @@
             android:id="@+id/summaryEntryPage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
             android:layout_marginTop="8dp"
             android:paddingRight="16dp"
             android:text="In this paper, we propose a variety of Long Short-Term Memory (LSTM) based models for sequence tagging. These models include LSTM networks, bidirectional LSTM (BI-LSTM) networks, LSTM with a Conditional Random Field (CRF) layer (LSTM-CRF) and bidirectional LSTM with a CRF layer (BI-LSTM-..."
-            android:layout_gravity="center_vertical|right"
-        app:layout_constraintStart_toStartOf="@+id/publishedDateEntryPage"
+            app:layout_constraintStart_toStartOf="@+id/publishedDateEntryPage"
             app:layout_constraintTop_toBottomOf="@+id/publishedDateEntryPage" />
 
 
@@ -82,5 +83,16 @@
             android:text="categories"
             app:layout_constraintStart_toStartOf="@+id/summaryEntryPage"
             app:layout_constraintTop_toBottomOf="@+id/summaryEntryPage" />
+
+        <Button
+            android:id="@+id/openpdfbutton"
+            android:layout_width="107dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="8dp"
+            android:text="Open pdf"
+            app:layout_constraintStart_toStartOf="@+id/categoriesEntryPage"
+            app:layout_constraintTop_toBottomOf="@+id/categoriesEntryPage"
+            tools:text="Open pdf" />
+
     </android.support.constraint.ConstraintLayout>
 </android.support.v4.widget.NestedScrollView>

@@ -44,7 +44,13 @@
                 android:value=".activities.MainTimelineActivity" />
         </activity>
         <activity android:name=".activities.ChoosingActivity" />
-        <activity android:name=".activities.StarredActivity" />
+        <activity android:name=".activities.StarredActivity" >
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
         <activity android:name=".activities.SplashScreenActivity"></activity>
     </application>
 
