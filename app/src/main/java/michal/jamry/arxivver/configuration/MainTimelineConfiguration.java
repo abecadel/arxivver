@@ -11,4 +11,8 @@ public class MainTimelineConfiguration {
     public static List<String> getQueryParts() {
         return null;
     }
+
+    public static void setQueryParts(List<String> queryParts) {
+
+    }
 }

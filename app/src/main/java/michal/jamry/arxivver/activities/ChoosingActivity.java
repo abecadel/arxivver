@@ -1,11 +1,13 @@
 package michal.jamry.arxivver.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,9 +54,14 @@ public class ChoosingActivity extends AppCompatActivity {
             }
         });
 
-
         saveButton.setOnClickListener(view -> {
-
+            if (queryParts.size() > 0) {
+                MainTimelineConfiguration.setQueryParts(queryParts);
+                startActivity(new Intent(this, MainTimelineActivity.class));
+                finish();
+            } else {
+                Toast.makeText(this, "Add at least one query part", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }
