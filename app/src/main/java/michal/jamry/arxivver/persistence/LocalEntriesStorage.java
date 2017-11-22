@@ -13,7 +13,7 @@ import michal.jamry.arxivver.arxiv.ArxivFeedEntry;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
- * The type Local entries storage.
+ * Stores publication entries that were starred bt the user.
  */
 public class LocalEntriesStorage {
     private Gson gson = new Gson();

@@ -7,7 +7,7 @@ import static michal.jamry.arxivver.activities.MainTimelineActivity.ARXIV_TIMELI
 import static michal.jamry.arxivver.activities.MainTimelineActivity.POSITION;
 
 /**
- * The type Arxivver application.
+ * Main app class - doing some cleanup before we start the application.
  */
 public class ArxivverApplication extends Application {
 

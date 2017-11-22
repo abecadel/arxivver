@@ -14,7 +14,7 @@ import michal.jamry.arxivver.arxiv.ArxivApiQueryBuilder;
 import michal.jamry.arxivver.configuration.MainTimelineConfiguration;
 
 /**
- * The type Main timeline activity.
+ * Main timeline of publications, chosen by the query constructed on ChoosingActivity. It allows us to "star" a publication or see the details of a specific publication.
  */
 public class MainTimelineActivity extends AbstractTimelineActivity {
 

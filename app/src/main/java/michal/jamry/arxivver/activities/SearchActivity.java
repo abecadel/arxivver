@@ -7,7 +7,7 @@ import android.os.Bundle;
 import michal.jamry.arxivver.R;
 
 /**
- * The type Search activity.
+ * Activity showing results of searched query.
  */
 public class SearchActivity extends AbstractTimelineActivity {
 

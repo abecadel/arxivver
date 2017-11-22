@@ -4,7 +4,7 @@ package michal.jamry.arxivver.adapters.listeners;
 import michal.jamry.arxivver.arxiv.ArxivFeedEntry;
 
 /**
- * The type Arxiv timeline adapter callback listener.
+ * Composed callback used to handle click and error events while displaying feed entries.
  */
 public class ArxivTimelineAdapterCallbackListener {
     /**

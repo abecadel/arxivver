@@ -13,7 +13,7 @@ import java.util.List;
 import michal.jamry.arxivver.arxiv.ArxivFeedEntryAuthor;
 
 /**
- * The type Model utils.
+ * Helpful methods used by activities.
  */
 public class ModelUtils {
     private static final int TWEET_LENGTH = 288;

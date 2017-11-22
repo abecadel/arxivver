@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The type Arxiv feed parser.
+ * arxiv.com api feed parser.
  */
 public class ArxivFeedParser {
 

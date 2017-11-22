@@ -10,7 +10,7 @@ import java.util.List;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
- * The type Main timeline configuration.
+ * Storage of selected query params, selected by the user.
  */
 public class MainTimelineConfiguration {
 

@@ -19,7 +19,7 @@ import static michal.jamry.arxivver.models.ModelUtils.prepareLongAuthorsList;
 import static michal.jamry.arxivver.models.ModelUtils.removeNewlines;
 
 /**
- * The type Publication activity.
+ * Activity showing details of a specific publication. Allows us to "star" it or show the pdf.
  */
 public class PublicationActivity extends AppCompatActivity {
 

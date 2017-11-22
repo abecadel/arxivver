@@ -14,7 +14,7 @@ import michal.jamry.arxivver.arxiv.ArxivFeedEntry;
 import michal.jamry.arxivver.persistence.LocalEntriesStorage;
 
 /**
- * The type Starred activity.
+ * This activity shows us publications previously "starred" by the user. Allows us tu unstar or show the details of the publication.
  */
 public class StarredActivity extends AppCompatActivity {
 

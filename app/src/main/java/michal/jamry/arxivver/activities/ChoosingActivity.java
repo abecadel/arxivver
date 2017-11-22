@@ -16,7 +16,7 @@ import michal.jamry.arxivver.R;
 import michal.jamry.arxivver.configuration.MainTimelineConfiguration;
 
 /**
- * The type Choosing activity.
+ * This activity allows us to construct a query used in MainTimelineActivity to show specified by user categories of publications.
  */
 public class ChoosingActivity extends AppCompatActivity {
 

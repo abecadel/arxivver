@@ -8,7 +8,7 @@ import michal.jamry.arxivver.R;
 import michal.jamry.arxivver.configuration.MainTimelineConfiguration;
 
 /**
- * The type Splash screen activity.
+ * "Starting" activity, it checks if it's the first time we've run the application and either runs the query configuration activity or the main timeline activity.
  */
 public class SplashScreenActivity extends AppCompatActivity {
 
