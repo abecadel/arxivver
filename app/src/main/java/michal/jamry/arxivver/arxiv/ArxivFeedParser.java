@@ -18,11 +18,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type Arxiv feed parser.
+ */
 public class ArxivFeedParser {
 
     private static final String ns = null;
     private static final DateFormat arxivEntryDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
 
+    /**
+     * Parse arxiv feed.
+     *
+     * @param in the in
+     * @return the arxiv feed
+     * @throws XmlPullParserException the xml pull parser exception
+     * @throws IOException            the io exception
+     */
     public ArxivFeed parse(InputStream in) throws XmlPullParserException, IOException {
         try {
             XmlPullParser parser = Xml.newPullParser();

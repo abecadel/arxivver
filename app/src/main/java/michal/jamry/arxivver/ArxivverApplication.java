@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import static michal.jamry.arxivver.activities.MainTimelineActivity.ARXIV_TIMELINE_ACTIVITY_STORAGE;
 import static michal.jamry.arxivver.activities.MainTimelineActivity.POSITION;
 
+/**
+ * The type Arxivver application.
+ */
 public class ArxivverApplication extends Application {
 
     @Override

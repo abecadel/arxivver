@@ -14,7 +14,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        if (MainTimelineConfiguration.isAlreadyConfigured()) {
+        if (new MainTimelineConfiguration(getBaseContext()).isAlreadyConfigured()) {
             startActivity(new Intent(this, MainTimelineActivity.class));
         } else {
             startActivity(new Intent(this, ChoosingActivity.class));

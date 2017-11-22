@@ -12,10 +12,19 @@ import java.util.List;
 
 import michal.jamry.arxivver.arxiv.ArxivFeedEntryAuthor;
 
+/**
+ * The type Model utils.
+ */
 public class ModelUtils {
     private static final int TWEET_LENGTH = 288;
     private static final DateFormat dateFormat = DateFormat.getDateInstance();
 
+    /**
+     * Elipsis string.
+     *
+     * @param txt the txt
+     * @return the string
+     */
     public static String elipsis(String txt) {
         if (txt == null) {
             return null;
@@ -28,10 +37,22 @@ public class ModelUtils {
         }
     }
 
+    /**
+     * Remove newlines string.
+     *
+     * @param txt the txt
+     * @return the string
+     */
     public static String removeNewlines(String txt) {
         return txt.replaceAll("\n", " ");
     }
 
+    /**
+     * Prepare txt string.
+     *
+     * @param txt the txt
+     * @return the string
+     */
     public static String prepareTxt(String txt) {
         if (txt == null) {
             return null;
@@ -40,10 +61,23 @@ public class ModelUtils {
         return removeNewlines(elipsis(txt.trim()));
     }
 
+    /**
+     * Prepare date string.
+     *
+     * @param date the date
+     * @return the string
+     */
     public static String prepareDate(Date date) {
         return dateFormat.format(date);
     }
 
+    /**
+     * Prepare categories string.
+     *
+     * @param primaryCategory the primary category
+     * @param categories      the categories
+     * @return the string
+     */
     public static String prepareCategories(String primaryCategory, List<String> categories) {
         StringBuilder txt = new StringBuilder(primaryCategory);
 
@@ -58,6 +92,12 @@ public class ModelUtils {
         return txt.toString();
     }
 
+    /**
+     * Prepare short authors list string.
+     *
+     * @param authorList the author list
+     * @return the string
+     */
     public static String prepareShortAuthorsList(List<ArxivFeedEntryAuthor> authorList) {
         StringBuilder ret = new StringBuilder();
 
@@ -76,6 +116,12 @@ public class ModelUtils {
         return ret.toString();
     }
 
+    /**
+     * Prepare long authors list string.
+     *
+     * @param authorList the author list
+     * @return the string
+     */
     public static String prepareLongAuthorsList(List<ArxivFeedEntryAuthor> authorList) {
         StringBuilder ret = new StringBuilder();
         for (int i = 0; i < authorList.size(); i++) {
@@ -88,7 +134,14 @@ public class ModelUtils {
         return ret.toString();
     }
 
-    //https://stackoverflow.com/a/45727769/1062744
+    /**
+     * Make links.
+     *
+     * @param textView       the text view
+     * @param links          the links
+     * @param clickableSpans the clickable spans
+     */
+//https://stackoverflow.com/a/45727769/1062744
     public static void makeLinks(TextView textView, List<String> links, List<ClickableSpan> clickableSpans) {
         SpannableString spannableString = new SpannableString(textView.getText());
         for (int i = 0; i < links.size(); i++) {

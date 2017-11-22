@@ -21,6 +21,7 @@ public class ChoosingActivity extends AppCompatActivity {
     private Button addButton;
     private Button saveButton;
     private ListView listView;
+    private MainTimelineConfiguration mainTimelineConfiguration;
 
     private List<String> queryParts;
 
@@ -28,8 +29,9 @@ public class ChoosingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choosing);
+        mainTimelineConfiguration = new MainTimelineConfiguration(getBaseContext());
 
-        List<String> storedQueryParts = MainTimelineConfiguration.getQueryParts();
+        List<String> storedQueryParts = mainTimelineConfiguration.getQueryParts();
         if (storedQueryParts == null) {
             queryParts = new ArrayList<>();
         } else {
@@ -56,7 +58,7 @@ public class ChoosingActivity extends AppCompatActivity {
 
         saveButton.setOnClickListener(view -> {
             if (queryParts.size() > 0) {
-                MainTimelineConfiguration.setQueryParts(queryParts);
+                mainTimelineConfiguration.setQueryParts(queryParts);
                 startActivity(new Intent(this, MainTimelineActivity.class));
                 finish();
             } else {

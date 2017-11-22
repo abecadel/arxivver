@@ -9,7 +9,13 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * The type Arxiv retrieve publications task.
+ */
 public class ArxivRetrievePublicationsTask extends AsyncTask<String, Void, ArxivFeed> {
+    /**
+     * The Exception.
+     */
     protected Exception exception = null;
 
     @Override
