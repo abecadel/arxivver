@@ -17,6 +17,7 @@ public class ChoosingActivity extends AppCompatActivity {
 
     private AutoCompleteTextView autoCompleteTextView;
     private Button addButton;
+    private Button saveButton;
     private ListView listView;
 
     private List<String> queryParts;
@@ -36,6 +37,7 @@ public class ChoosingActivity extends AppCompatActivity {
         autoCompleteTextView = findViewById(R.id.queryPartAutoCompleteTextView);
         addButton = findViewById(R.id.addQueryPartButton);
         listView = findViewById(R.id.queryPartsListView);
+        saveButton = findViewById(R.id.saveButton);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, queryParts);
@@ -48,6 +50,11 @@ public class ChoosingActivity extends AppCompatActivity {
                 queryParts.add(txt.trim());
                 adapter.notifyDataSetChanged();
             }
+        });
+
+
+        saveButton.setOnClickListener(view -> {
+
         });
     }
 }
