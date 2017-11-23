@@ -13,11 +13,11 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
-        <activity android:name=".activities.MainTimelineActivity"></activity>
-        <activity android:name=".activities.PublicationActivity"></activity>
-        <activity
-            android:name=".activities.SearchActivity"
-            android:parentActivityName=".activities.MainTimelineActivity">
+        <activity android:name=".activities.MainTimelineActivity" />
+        <activity android:name=".activities.PublicationActivity" />
+        <activity android:name=".activities.ChoosingActivity" />
+        <activity android:name=".activities.StarredActivity"/>
+        <activity android:name=".activities.SearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -25,12 +25,7 @@
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainTimelineActivity" />
         </activity>
-        <activity android:name=".activities.ChoosingActivity" />
-        <activity android:name=".activities.StarredActivity"></activity>
         <activity android:name=".activities.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
