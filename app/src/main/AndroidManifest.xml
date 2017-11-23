@@ -14,15 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
         <activity android:name=".activities.MainTimelineActivity"></activity>
-        <activity
-            android:name=".activities.PublicationActivity"
-            android:parentActivityName=".activities.MainTimelineActivity">
-
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainTimelineActivity" />
-        </activity>
+        <activity android:name=".activities.PublicationActivity"></activity>
         <activity
             android:name=".activities.SearchActivity"
             android:parentActivityName=".activities.MainTimelineActivity">
@@ -38,16 +30,7 @@
                 android:value=".activities.MainTimelineActivity" />
         </activity>
         <activity android:name=".activities.ChoosingActivity" />
-        <activity
-            android:name=".activities.StarredActivity"
-            android:parentActivityName=".activities.MainTimelineActivity">
-
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainTimelineActivity" />
-
-        </activity>
+        <activity android:name=".activities.StarredActivity"></activity>
         <activity android:name=".activities.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
