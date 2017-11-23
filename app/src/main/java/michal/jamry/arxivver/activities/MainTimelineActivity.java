@@ -4,8 +4,10 @@ package michal.jamry.arxivver.activities;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import java.util.List;
 
@@ -49,5 +51,20 @@ public class MainTimelineActivity extends AbstractTimelineActivity {
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName));
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.choosingButton:
+                startActivity(new Intent(this, ChoosingActivity.class));
+                finish();
+                return true;
+            case R.id.starredButton:
+                startActivity(new Intent(this, StarredActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
