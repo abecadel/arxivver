@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
 import michal.jamry.arxivver.R;
@@ -121,6 +122,7 @@ public abstract class AbstractTimelineActivity extends AppCompatActivity {
     }
 
     private void handleAdapterError(String error, Exception e) {
+        Log.e("retrievingFeedError", error, e);
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 }

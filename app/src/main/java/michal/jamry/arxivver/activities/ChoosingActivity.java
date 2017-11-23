@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import michal.jamry.arxivver.R;
+import michal.jamry.arxivver.adapters.ChoosingAdapter;
 import michal.jamry.arxivver.configuration.MainTimelineConfiguration;
 
 import static michal.jamry.arxivver.arxiv.ArxivApiQueryBuilder.HINTS;
@@ -47,16 +48,14 @@ public class ChoosingActivity extends AppCompatActivity {
         listView = findViewById(R.id.queryPartsListView);
         saveButton = findViewById(R.id.saveButton);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, queryParts);
+        ChoosingAdapter adapter = new ChoosingAdapter(queryParts, getBaseContext());
         listView.setAdapter(adapter);
 
         addButton.setOnClickListener(view -> {
             String txt = autoCompleteTextView.getText().toString();
             if (txt.length() > 0) {
                 autoCompleteTextView.setText("");
-                queryParts.add(txt.trim());
-                adapter.notifyDataSetChanged();
+                adapter.addElement(txt.trim());
             }
         });
 
