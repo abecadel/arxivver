@@ -49,8 +49,8 @@ public class ArxivRetrievePublicationsTask extends AsyncTask<String, Void, Arxiv
     private InputStream downloadUrl(String urlString) throws IOException {
         URL url = new URL(urlString);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setReadTimeout(10000);
-        conn.setConnectTimeout(15000);
+        conn.setReadTimeout(20000);
+        conn.setConnectTimeout(25000);
         conn.setRequestMethod("GET");
         conn.setDoInput(true);
         conn.connect();
