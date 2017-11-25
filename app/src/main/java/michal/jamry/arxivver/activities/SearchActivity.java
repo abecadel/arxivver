@@ -3,6 +3,7 @@ package michal.jamry.arxivver.activities;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import michal.jamry.arxivver.R;
 import michal.jamry.arxivver.arxiv.ArxivApiQueryBuilder;
@@ -30,7 +31,9 @@ public class SearchActivity extends AbstractTimelineActivity {
         //retrieve search query
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            query = ArxivApiQueryBuilder.aBuilder().withFullSearchQuery(intent.getStringExtra(SearchManager.QUERY));
+            String orgQuery = intent.getStringExtra(SearchManager.QUERY);
+            query = ArxivApiQueryBuilder.aBuilder().withFullSearchQuery(orgQuery);
+            ((AppCompatActivity) this).getSupportActionBar().setTitle("Search: " + orgQuery);
         }
 
         super.onCreate(savedInstanceState);

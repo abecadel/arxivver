@@ -34,6 +34,9 @@ public class ChoosingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choosing);
+
+        ((AppCompatActivity)this).getSupportActionBar().setTitle("Settings");
+
         mainTimelineConfiguration = new MainTimelineConfiguration(getBaseContext());
 
         List<String> storedQueryParts = mainTimelineConfiguration.getQueryParts();

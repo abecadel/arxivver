@@ -27,6 +27,8 @@ public class StarredActivity extends AppCompatActivity {
         setContentView(R.layout.activity_starred);
         recyclerView = findViewById(R.id.recycler_view_starred);
 
+        ((AppCompatActivity)this).getSupportActionBar().setTitle("Starred");
+
         //setup recyclerview
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
