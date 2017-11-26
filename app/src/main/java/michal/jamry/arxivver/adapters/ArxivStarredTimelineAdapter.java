@@ -17,6 +17,9 @@ import michal.jamry.arxivver.arxiv.ArxivFeedEntry;
 import michal.jamry.arxivver.models.ArxivTimelineEntryViewHolder;
 import michal.jamry.arxivver.persistence.LocalEntriesStorage;
 
+/**
+ * The type Arxiv starred timeline adapter.
+ */
 public class ArxivStarredTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntryViewHolder> {
 
     private ArxivTimelineAdapterCallbackListener arxivTimelineAdapterCallbackListener;
@@ -24,6 +27,12 @@ public class ArxivStarredTimelineAdapter extends RecyclerView.Adapter<ArxivTimel
     private List<ArxivFeedEntry> arxivFeedEntryList = new ArrayList<>();
     private Map<String, ArxivFeedEntry> storedEntries;
 
+    /**
+     * Instantiates a new Arxiv starred timeline adapter.
+     *
+     * @param localEntriesStorage                  the local entries storage
+     * @param arxivTimelineAdapterCallbackListener the arxiv timeline adapter callback listener
+     */
     public ArxivStarredTimelineAdapter(LocalEntriesStorage localEntriesStorage, ArxivTimelineAdapterCallbackListener arxivTimelineAdapterCallbackListener) {
         this.arxivTimelineAdapterCallbackListener = arxivTimelineAdapterCallbackListener;
         this.localEntriesStorage = localEntriesStorage;

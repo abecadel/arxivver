@@ -22,6 +22,9 @@ import michal.jamry.arxivver.arxiv.ArxivRetrievePublicationsTask;
 import michal.jamry.arxivver.models.ArxivTimelineEntryViewHolder;
 import michal.jamry.arxivver.persistence.LocalEntriesStorage;
 
+/**
+ * The type Arxiv timeline adapter.
+ */
 public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntryViewHolder> {
 
     private static final int FETCHED_BATCH_SIZE = 25;
@@ -35,6 +38,13 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
     private LocalEntriesStorage localEntriesStorage;
     private Map<String, ArxivFeedEntry> storedEntries;
 
+    /**
+     * Instantiates a new Arxiv timeline adapter.
+     *
+     * @param query                                the query
+     * @param localEntriesStorage                  the local entries storage
+     * @param arxivTimelineAdapterCallbackListener the arxiv timeline adapter callback listener
+     */
     public ArxivTimelineAdapter(ArxivApiQueryBuilder query, LocalEntriesStorage localEntriesStorage, ArxivTimelineAdapterCallbackListener arxivTimelineAdapterCallbackListener) {
         this.query = query;
         this.arxivTimelineAdapterCallbackListener = arxivTimelineAdapterCallbackListener;
@@ -67,6 +77,9 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
         new TimelineAdapterArxivRetrievePublicationsTask(this).execute(fullquery);
     }
 
+    /**
+     * Gets more feed.
+     */
     public void getMoreFeed() {
         if (startIndex < totalResults) {
             retrieveFeed(query, startIndex + itemsPerPage, FETCHED_BATCH_SIZE);
@@ -104,6 +117,11 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
         return arxivFeedEntryList.size();
     }
 
+    /**
+     * Handle data.
+     *
+     * @param arxivFeed the arxiv feed
+     */
     void handleData(ArxivFeed arxivFeed) {
         totalResults = arxivFeed.getTotalResults();
         startIndex = arxivFeed.getStartIndex();
@@ -114,6 +132,11 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
         arxivTimelineAdapterCallbackListener.handleDataRequestComplete();
     }
 
+    /**
+     * Handle error.
+     *
+     * @param e the e
+     */
     void handleError(Exception e) {
         Log.d("AdapterError", "Error downloading feed");
         arxivTimelineAdapterCallbackListener.handleErrors("Error retrieving feed", e);
@@ -123,6 +146,11 @@ public class ArxivTimelineAdapter extends RecyclerView.Adapter<ArxivTimelineEntr
     private static class TimelineAdapterArxivRetrievePublicationsTask extends ArxivRetrievePublicationsTask {
         private WeakReference<ArxivTimelineAdapter> adapterWeakReference;
 
+        /**
+         * Instantiates a new Timeline adapter arxiv retrieve publications task.
+         *
+         * @param adapter the adapter
+         */
         public TimelineAdapterArxivRetrievePublicationsTask(ArxivTimelineAdapter adapter) {
             this.adapterWeakReference = new WeakReference<>(adapter);
         }

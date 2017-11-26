@@ -58,8 +58,10 @@ public class PublicationActivity extends AppCompatActivity {
         toggleButton.setOnCheckedChangeListener((compoundButton, state) -> {
             if (state) {
                 localEntriesStorage.store(arxivFeedEntry);
+                Toast.makeText(getBaseContext(), "Publication starred", Toast.LENGTH_SHORT);
             } else {
                 localEntriesStorage.removeFromStorage(arxivFeedEntry.getId());
+                Toast.makeText(getBaseContext(), "Publication unstarred", Toast.LENGTH_SHORT);
             }
         });
 
