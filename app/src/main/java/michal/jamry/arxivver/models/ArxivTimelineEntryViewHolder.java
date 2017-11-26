@@ -46,10 +46,6 @@ public class ArxivTimelineEntryViewHolder extends RecyclerView.ViewHolder {
      * The On title click listener.
      */
     ClickableSpan onTitleClickListener;
-    /**
-     * The Toggle button.
-     */
-    ToggleButton toggleButton;
 
     /**
      * Instantiates a new Arxiv timeline entry view holder.
@@ -66,7 +62,6 @@ public class ArxivTimelineEntryViewHolder extends RecyclerView.ViewHolder {
         publishedDate = itemView.findViewById(R.id.publishedDateEntryPage);
         authors = itemView.findViewById(R.id.AUTHORS);
         categories = itemView.findViewById(R.id.CATEGORIES);
-        toggleButton = itemView.findViewById(R.id.toggleButton);
     }
 
     /**
@@ -84,7 +79,6 @@ public class ArxivTimelineEntryViewHolder extends RecyclerView.ViewHolder {
         publishedDate.setText(prepareDate(arxivFeedEntry.getPublished()));
         authors.setText(prepareShortAuthorsList(arxivFeedEntry.getAuthorList()));
         categories.setText(prepareCategories(arxivFeedEntry.getPrimaryCategory(), arxivFeedEntry.getCategories()));
-        toggleButton.setChecked(storedLocally);
     }
 
 }

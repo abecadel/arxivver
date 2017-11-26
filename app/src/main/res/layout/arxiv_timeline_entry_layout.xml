@@ -83,19 +83,4 @@
         app:layout_constraintTop_toBottomOf="@+id/ENTRY_SUMMARY"
         android:background="#000000" />
 
-    <ToggleButton
-        android:id="@+id/toggleButton"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="8dp"
-        android:text=""
-        android:background="@drawable/star_check"
-        android:textOn=""
-        android:textOff=""
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/publishedDateEntryPage" />
-
 </android.support.constraint.ConstraintLayout>
