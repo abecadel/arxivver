@@ -21,4 +21,4 @@ JavaDocs are in app/build/docs/javadoc/index.html
 
 ![alt text](https://raw.githubusercontent.com/abecadel/arxivver/master/screenshots/Screenshot_20171126-030145.png)
 
-![alt text](https://raw.githubusercontent.com/abecadel/arxivver/master/screenshots/Screenshot_20171126-030202.png)
+![alt text](screenshots/Screenshot_20171126-030202.png)
